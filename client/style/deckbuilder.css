@@ -1,0 +1,49 @@
+#control-panel {
+  height: 115px;
+}
+
+#control-panel .panel-heading {
+  position: relative;
+}
+
+/* Deck name font */
+#control-panel .deck-name {
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
+}
+
+/* Toolbar is floated to the top right of the control panel */
+#control-panel .toolbar {
+  position: absolute;
+  right: 6px;
+  top: 6px;
+}
+
+#control-panel .cardpool-filter {
+  float: left;
+  margin-right: 30px;
+}
+
+/* Border around the color filter */
+#control-panel .color-filter {
+  border: 1px solid #EEEEEE;
+  border-radius: 4px;
+}
+
+#control-panel .btn-inverse {
+  background-color: black;
+  color: white;
+}
+
+#cardpool {
+  border: 1px solid #EEEEEE;
+  height: 290px;
+  margin: 10px 0;
+  overflow-y: auto;
+  padding: 5px 5px;
+}
+
+#deck .deck-entry {
+  cursor: pointer;
+}

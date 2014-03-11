@@ -1,0 +1,11 @@
+{
+  "name": "envoy",
+  "version": "0.0.1",
+  "description": "Multiplayer trading card game",
+  "git": "https://github.com/gaye/envoy",
+
+  "packages": {
+    "bootstrap-3": {},
+    "mini-pages": {}
+  }
+}

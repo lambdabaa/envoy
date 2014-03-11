@@ -1,0 +1,11 @@
+<template name="decks">
+  <div class="container">
+    <div class="decklist">
+      {{#each decks}}
+        <a href="/decks/edit">{{name}}</a>
+      {{/each}}
+    </div>
+
+    <a href="/decks/edit" class="btn btn-default btn-default btn-lg"><span class="glyphicon glyphicon-plus"></span>Create New</a>
+  </div>
+</template>

@@ -1,0 +1,22 @@
+{
+  "name": "envoy",
+  "version": "0.0.1",
+  "private": "true",
+
+  "devDependencies": {
+    "chai": "1.9.x",
+    "glob": "3.2.x",
+    "grunt": "0.4.x",
+    "grunt-cli": "0.1.x",
+    "grunt-contrib-jshint": "0.8.x",
+    "grunt-contrib-watch": "0.5.x",
+    "grunt-mocha": "0.4.x",
+    "grunt-mocha-test": "0.9.x",
+    "istanbul": "0.2.x",
+    "mocha": "1.17.x",
+    "q": "1.0.x",
+    "selenium-standalone": "2.40.x",
+    "selenium-webdriver": "2.40.x",
+    "underscore": "1.6.x"
+  }
+}
