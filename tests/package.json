@@ -13,10 +13,15 @@
     "grunt-mocha": "0.4.x",
     "grunt-mocha-test": "0.9.x",
     "istanbul": "0.2.x",
+    "meteorite": "0.7.x",
     "mocha": "1.17.x",
     "q": "1.0.x",
     "selenium-standalone": "2.40.x",
     "selenium-webdriver": "2.40.x",
     "underscore": "1.6.x"
+  },
+
+  "scripts": {
+    "test": "./node_modules/.bin/grunt"
   }
 }

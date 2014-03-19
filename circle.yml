@@ -1,0 +1,11 @@
+general:
+  build_dir: tests
+machine:
+  node:
+    version: 0.10.22
+test:
+  pre:
+    - cd .. && tests/node_modules/.bin/mrt install
+    - cd .. && meteor:
+        background: true
+    - while ! nc -vz localhost 3000; do sleep 1 && echo "Waiting for server..."; done
