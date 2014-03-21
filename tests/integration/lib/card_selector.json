@@ -1,0 +1,18 @@
+{
+  "cardpool": {
+    "name": ".card-name",
+    "image": ".card-image",
+    "cardtype": ".card-type",
+    "colorCost": ".card-color-cost",
+    "colorlessCost": ".card-colorless-cost",
+    "description": ".card-description",
+    "combat": ".card-combat"
+  },
+
+  "deck": {
+    "count": "td[name=\"count\"]",
+    "name": "td[name=\"name\"]",
+    "cardtype": "td[name=\"cardtype\"]",
+    "cost": "td[name=\"cost\"]"
+  }
+}

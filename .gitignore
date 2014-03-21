@@ -1,0 +1,6 @@
+/.meteor/.gitignore
+/.meteor/local/
+/packages/
+
+/tests/coverage/
+/tests/node_modules/

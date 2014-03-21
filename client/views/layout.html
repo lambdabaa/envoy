@@ -1,0 +1,19 @@
+<template name="layout">
+  <div class="navbar navbar-default navbar-static-top">
+    <div class="container">
+      <div class="navbar-header">
+        <a class="navbar-brand" href="/">Envoy</a>
+      </div>
+
+      <ul class="nav navbar-nav">
+        <li><a href="/decks">Deck Builder</a></li>
+      </ul>
+
+      <div class="nav navbar-nav navbar-right navbar-text">
+        {{ loginButtons align="right" }}
+      </div>
+    </div>
+  </div>
+
+  {{{yield}}}
+</template>

@@ -1,0 +1,21 @@
+{
+  "deckname": {
+    "read": "#control-panel .deck-name",
+    "write": "#rename .deckname-input",
+    "save": "#rename .deckname-save"
+  },
+
+  "controlPanel": {
+    "search": "#search-filter"
+  },
+
+  "cardpool": {
+    "card": "#cardpool .card"
+  },
+
+  "deck": {
+    "card": ".deck-entry",
+    "discard": "#control-panel .trash-deck",
+    "save": "#control-panel .deck-save"
+  }
+}

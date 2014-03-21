@@ -1,0 +1,26 @@
+<template name="card">
+  <div class="card {{color}}" name="{{name}}">
+    <div class="card-name">{{name}}</div>
+
+    <div class="card-image-container">
+      <img class="card-image" src="{{image}}"></img>
+    </div>
+
+    <div class="card-tray">
+      <div class="card-type">{{cardtype}}</div>
+
+      <div class="card-cost-container">
+        <div class="card-cost card-colorless-cost">{{cost.colorless}}</div>
+        <div class="card-cost card-color-cost {{color}}">{{cost.color}}</div>
+      </div>
+    </div>
+
+    <div class="card-description">
+      {{formatDescription description}}
+    </div>
+
+    <div class="card-combat">
+      {{formatCombat power hp}}
+    </div>
+  </div>
+</template>

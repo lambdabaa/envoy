@@ -1,0 +1,138 @@
+<template name="deckbuilder">
+  <div class="container">
+    <section id="control-panel">
+      <div class="panel panel-info">
+        <div class="panel-heading">
+          <div class="deck-name" data-toggle="modal" data-target="#rename-dialog">{{deckname}}</div>
+          <span class="toolbar">
+            <div class="btn btn-primary load-deck" data-toggle="modal" data-target="#load-dialog">
+              <span class="glyphicon glyphicon-cloud-download"></span> Load Saved
+            </div>
+            <div class="btn btn-danger save-deck" {{#if isClean}}disabled{{/if}}>
+              <span class="glyphicon glyphicon-cloud-upload"></span> Save Deck
+            </div>
+            <div class="btn btn-default trash-deck" {{#if isClean}}disabled{{/if}}>
+              <span class="glyphicon glyphicon-trash"></span> Discard Draft
+            </div>
+          </span>
+        </div>
+
+        <div class="panel-body">
+          <div class="cardpool-filter color-filter btn-group">
+            <label class="btn btn-primary label-blue">
+              <input type="checkbox" name="color" value="blue">
+            </label>
+            <label class="btn btn-inverse label-black">
+              <input type="checkbox" name="color" value="black">
+            </label>
+            <label class="btn btn-success label-green">
+              <input type="checkbox" name="color" value="green">
+            </label>
+            <label class="btn btn-danger label-red">
+              <input type="checkbox" name="color" value="red">
+            </label>
+            <label class="btn label-white">
+              <input type="checkbox" name="color" value="white">
+            </label>
+          </div>
+
+          <div class="cardpool-filter btn-group">
+            <label class="btn btn-warning label-envoy">
+              <input type="checkbox" name="cardtype" value="envoy"> Envoy
+            </label>
+            <label class="btn btn-warning label-spell">
+              <input type="checkbox" name="cardtype" value="spell"> Spell
+            </label>
+            <label class="btn btn-warning label-trap">
+              <input type="checkbox" name="cardtype" value="trap"> Trap
+            </label>
+          </div>
+
+          <div class="input-group">
+            <input id="search-filter" type="text" class="form-control">
+            <span class="input-group-btn">
+              <button class="btn btn-info" type="button" disabled>
+                <span class="glyphicon glyphicon-search"></span>
+              </button>
+            </span>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="cardpool">
+      {{#each cardpool}}
+        {{> card}}
+      {{/each}}
+    </section>
+
+    <section id="deck">
+      <table class="table table-striped">
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Card Name</th>
+            <th>Card Type</th>
+            <th>Energy Cost</th>
+          </tr>
+          <tbody>
+            {{#each deck}}
+              <tr class="deck-entry" name="{{name}}">
+                <td name="count">{{count}}</td>
+                <td name="name">{{name}}</td>
+                <td name="cardtype">{{cardtype}}</td>
+                <td name="cost">{{formatCost this}}</td>
+              </tr>
+            {{/each}}
+          </tbody>
+        </thead>
+      </table>
+    </section>
+
+    <section id="rename">
+      <div id="rename-dialog" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Rename deck</h4>
+            </div>
+
+            <div class="modal-body">
+              <input type="text" class="deckname-input form-control" value="{{deckname}}"></input>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary deckname-save" data-dismiss="modal">Save</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="load">
+      <div id="load-dialog" class="modal fade">
+        <div class="modal-dialog">
+          <div class="modal-content">
+            <div class="modal-header">
+              <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+              <h4 class="modal-title">Select deck</h4>
+            </div>
+
+            <div class="modal-body">
+              <form class="deck-selector">
+                {{#each decks}}
+                  <input type="radio" name="deckname" value="{{name}}"> {{name}} <br />
+                {{/each}}
+              </form>
+            </div>
+
+            <div class="modal-footer">
+              <button type="button" class="btn btn-primary deckload" data-dismiss="modal">Load</button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+  </div>
+</template>
