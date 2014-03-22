@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mocha</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="./node_modules/mocha/mocha.css">
+  <script src="../node_modules/chai/chai.js"></script>
+  <script src="../node_modules/mocha/mocha.js"></script>
+  <script src="../node_modules/sinon/pkg/sinon.js"></script>
+  <script src="../node_modules/underscore/underscore.js"></script>
+</head>
+<body>
+  <div id="mocha"></div>
+  <script>mocha.setup('bdd');</script>
+  <script>var assert = chai.assert;</script>
+
+  <script>
+    afterEach(function(done) {
+      var req = new XMLHttpRequest();
+      req.open('POST', 'http://localhost:8080/coverage/client', true);
+      req.setRequestHeader('Content-Type', 'application/json');
+      req.onreadystatechange = function() {
+        if (req.readyState !== 4 || req.status !== 200) {
+          return;
+        }
+
+        done();
+      };
+
+      req.send(JSON.stringify(window.__coverage__));
+    });
+  </script>
+
+  <script src="./unit/mocks/ejson.js"></script>
+  <script src="./unit/mocks/session.js"></script>
+  <script src="./unit/mocks/template.js"></script>
+
+  <!-- TODO(gareth): Should be able to run client-side unit tests without
+           also doing code coverage -->
+  <script src="../app/client/controllers/card.cover.js"></script>
+  <script src="./unit/browser/controllers/card_test.js"></script>
+  <script src="../app/client/controllers/deckbuilder.cover.js"></script>
+  <script src="./unit/browser/controllers/deckbuilder_test.js"></script>
+  <script src="../app/client/controllers/decks.cover.js"></script>
+  <script src="./unit/browser/controllers/decks_test.js"></script>
+  <script src="../app/lib/array.cover.js"></script>
+  <script src="./unit/shared/array_test.js"></script>
+
+  <script>
+    if (navigator.userAgent.indexOf('PhantomJS') === -1) {
+      mocha.run();
+    }
+  </script>
+</body>
+</html>

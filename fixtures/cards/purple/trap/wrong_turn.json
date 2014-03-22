@@ -1,0 +1,19 @@
+{
+  "name": "Wrong Turn",
+  "color": "purple",
+  "image": "",
+
+  "cost": {
+    "colorless": 1,
+    "color": 1
+  },
+
+  "cardtype": {
+    "primary": "Trap"
+  },
+
+  "description": [
+    "When an envoy your opponent controls becomes tapped, spring this trap.",
+    "Destroy the tapped creature."
+  ]
+}

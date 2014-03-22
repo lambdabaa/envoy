@@ -1,0 +1,19 @@
+{
+  "name": "Natural Supplement",
+  "color": "green",
+  "image": "",
+
+  "cost": {
+    "colorless": 1,
+    "color": 1
+  },
+
+  "cardtype": {
+    "primary": "Trap"
+  },
+
+  "description": [
+    "When an envoy blocks, spring this trap.",
+    "Put 2 +1/+1 counters on target envoy."
+  ]
+}
