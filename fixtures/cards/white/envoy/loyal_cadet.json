@@ -1,0 +1,21 @@
+{
+  "name": "Loyal Cadet",
+  "color": "white",
+  "image": "",
+
+  "cost": {
+    "colorless": 1,
+    "color": 1
+  },
+
+  "cardtype": {
+    "primary": "Envoy",
+    "secondary": "Cadet"
+  },
+
+  "power": 2,
+  "hp": 2,
+
+  "description": [
+  ]
+}

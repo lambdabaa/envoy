@@ -1,0 +1,18 @@
+{
+  "name": "Float",
+  "color": "blue",
+
+  "cost": {
+    "color": 2,
+    "colorless": 1
+  },
+
+  "cardtype": {
+    "primary": "Trap"
+  },
+
+  "description": [
+    "When an envoy you control dies, spring this trap at the end of the turn.",
+    "Return all envoys that entered your graveyard this turn to your hand."
+  ]
+}

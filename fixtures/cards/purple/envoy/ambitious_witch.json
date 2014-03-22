@@ -1,0 +1,22 @@
+{
+  "name": "Ambitious Witch",
+  "color": "purple",
+  "image": "",
+
+  "cost": {
+    "colorless": 2,
+    "color": 2
+  },
+
+  "cardtype": {
+    "primary": "Envoy",
+    "secondary": "Witch"
+  },
+
+  "power": 6,
+  "hp": 6,
+
+  "description": [
+    "At the beginning of your turn, you lose 2 life."
+  ]
+}

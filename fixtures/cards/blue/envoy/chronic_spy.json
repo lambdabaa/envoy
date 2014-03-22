@@ -1,0 +1,22 @@
+{
+  "name": "Chronic Spy",
+  "color": "blue",
+  "image": "",
+
+  "cost": {
+    "color": 1,
+    "colorless": 2
+  },
+
+  "cardtype": {
+    "primary": "Envoy",
+    "secondary": "Human"
+  },
+
+  "power": 1,
+  "hp": 3,
+
+  "description": [
+    "When this deals damage to an opponent, draw a card."
+  ]
+}

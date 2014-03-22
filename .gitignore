@@ -1,0 +1,12 @@
+*.cover.js
+*.js.txt
+/coverage.zip
+
+/app/.meteor/.gitignore
+/app/.meteor/local
+/app/packages/
+/coverage
+/coverage-browser
+/coverage-integration
+/node_modules
+/packages

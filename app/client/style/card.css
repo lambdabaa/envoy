@@ -1,0 +1,128 @@
+.card {
+  border: 1px solid #999;
+  cursor: pointer;
+  float: left;
+  height: 236px;
+  margin: 0 5px 5px 0;
+  padding: 6px;
+  position: relative;
+  width: 177px;
+}
+
+.card-name {
+  background-color: white;
+  border: 1px solid #999;
+  font-size: 14px;
+  font-weight: bold;
+  height: 18px;
+  line-height: 18px;
+  position: relative;
+  text-align: center;
+}
+
+.card-image-container {
+  height: 100px;
+  position: relative;
+  margin: 4px auto;
+  width: 100%;
+}
+
+.card-image {
+  height: 100%;
+  position: relative;
+  width: 100%;
+}
+
+.card-tray {
+  background-color: white;
+  border: 1px solid #999;
+  border-radius: 3px;
+  font-size: 11px;
+  height: 20px;
+  line-height: 18px;
+  padding: 1px 4px;
+  position: relative;
+}
+
+.card-type {
+  float: left;
+  font-style: italic;
+  position: relative;
+}
+
+.card-cost-container {
+  float: right;
+}
+
+.card-cost {
+  border: 1px solid #999;
+  border-radius: 50%;
+  float: left;
+  font-size: 12px;
+  font-weight: bold;
+  height: 15px;
+  line-height: 15px;
+  margin: 0 1px;
+  text-align: center;
+  width: 15px;
+}
+
+.card-cost.blue,
+.card-cost.green,
+.card-cost.purple,
+.card-cost.red {
+  color: white;
+}
+
+.card-description {
+  background-color: white;
+  border: 1px solid #999;
+  font-size: 12px;
+  height: 71px;
+  margin: 4px 0;
+  overflow: hidden;
+  padding: 4px;
+  position: relative;
+  text-overflow: ellipsis;
+}
+
+.card-combat {
+  background-color: white;
+  border: 1px solid #999;
+  border-radius: 4px;
+  bottom: 4px;
+  font-size: 12px;
+  font-weight: bold;
+  height: 18px;
+  line-height: 18px;
+  overflow: hidden;
+  position: absolute;
+  right: 4px;
+  text-align: center;
+  text-overflow: ellipsis;
+  width: 34px;
+}
+
+.card *[data-hidden="true"] {
+  display: none;
+}
+
+.purple {
+  background-color: purple;
+}
+
+.blue {
+  background-color: #428BCA;
+}
+
+.green {
+  background-color: #5CB85C;
+}
+
+.red {
+  background-color: #D9534F;
+}
+
+.white {
+  background-color: #F5F5DC;
+}

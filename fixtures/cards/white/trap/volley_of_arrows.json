@@ -1,0 +1,19 @@
+{
+  "name": "Volley of Arrows",
+  "color": "white",
+  "image": "",
+
+  "cost": {
+    "colorless": 1,
+    "color": 1
+  },
+
+  "cardtype": {
+    "primary": "Trap"
+  },
+
+  "description": [
+    "When an opponent attacks, spring this trap.",
+    "Deal 1 damage to each attacking envoy."
+  ]
+}
