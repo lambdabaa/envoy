@@ -1,0 +1,18 @@
+{
+  "name": "Circle of Life",
+  "color": "green",
+  "image": "",
+
+  "cost": {
+    "colorless": 1,
+    "color": 1
+  },
+
+  "cardtype": {
+    "primary": "Spell"
+  },
+
+  "description": [
+    "Return target card from your graveyard to your hand."
+  ]
+}

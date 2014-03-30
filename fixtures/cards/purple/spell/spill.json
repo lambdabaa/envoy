@@ -1,0 +1,17 @@
+{
+  "name": "Spill",
+  "color": "purple",
+  "image": "",
+
+  "cost": {
+    "color": 1
+  },
+
+  "cardtype": {
+    "primary": "Spell"
+  },
+
+  "description": [
+    "Target opponent reveals their hand. Choose a spell or trap card from it. That player discards that card."
+  ]
+}

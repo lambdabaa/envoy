@@ -1,0 +1,21 @@
+{
+  "name": "Decomposing Vines",
+  "color": "green",
+  "image": "",
+
+  "cost": {
+    "color": 1
+  },
+
+  "cardtype": {
+    "primary": "Envoy",
+    "secondary": "Plant"
+  },
+
+  "power": 0,
+  "hp": 1,
+
+  "description": [
+    "When this dies, you gain one green energy."
+  ]
+}

@@ -1,0 +1,18 @@
+{
+  "name": "Redo",
+  "color": "white",
+  "image": "",
+
+  "cost": {
+    "colorless": 3,
+    "color": 2
+  },
+
+  "cardtype": {
+    "primary": "Spell"
+  },
+
+  "description": [
+    "Destroy all envoys in play."
+  ]
+}
