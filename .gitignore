@@ -5,8 +5,8 @@
 /app/.meteor/.gitignore
 /app/.meteor/local
 /app/packages/
+/build
 /coverage
 /coverage-browser
-/coverage-integration
 /node_modules
 /packages

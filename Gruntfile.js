@@ -33,8 +33,8 @@ module.exports = function(grunt) {
       // Instrument javascript
       instrument: {
         paths: [
-          'app/client/**/*.js',
-          'app/lib/**/*.js'
+          'build/client/**/*.js',
+          'build/lib/**/*.js'
         ]
       },
 
@@ -80,11 +80,11 @@ module.exports = function(grunt) {
     // Instrument all the things and start the coverage server
     // before we run unit and integration tests in the browser.
     // We will post data to the coverage server from the browser.
+    'build',
     'istanbul:instrument',
     'istanbul:startServer',
     'mocha',                 // Client-side unit test suite
     'mochaTest',             // WebDriverJs integration test suite
-    'istanbul:stopServer',
-    'istanbul:restore'
+    'istanbul:stopServer'
   ]);
 };
