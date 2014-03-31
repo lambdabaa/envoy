@@ -1,7 +1,6 @@
 var SeleniumServer = require('selenium-webdriver/remote').SeleniumServer,
     debug = require('debug')('envoy:bootstrap_test'),
     execf = require('../../tasks/lib/execf'),
-    fs = require('fs'),
     http = require('http'),
     rimraf = require('rimraf').sync,
     spawn = require('child_process').spawn,
@@ -92,7 +91,7 @@ afterEach(function(done) {
         }
       };
 
-      var req = http.request(options, function(res) {
+      var req = http.request(options, function() {
         driver.quit();
 
         debug('Stop meteor.');

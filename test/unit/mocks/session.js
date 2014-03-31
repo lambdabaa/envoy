@@ -1,5 +1,6 @@
+/* jshint -W098 */
 var Session = {
-  get: function(key) {},
+  get: function() {},
 
-  set: function(key, value) {}
+  set: function() {}
 };

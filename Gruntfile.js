@@ -11,7 +11,11 @@ module.exports = function(grunt) {
         'app/server/**/*.js',
         'tasks/**/*.js',
         'test/**/*.js'
-      ]
+      ],
+
+      options: {
+        jshintrc: true
+      }
     },
 
     istanbul: {

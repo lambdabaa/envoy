@@ -10,7 +10,7 @@ module.exports = {
           return driver
             .findElement(webdriver.By.css(selector))
             .isDisplayed()
-            .thenCatch(function(err) {
+            .thenCatch(function() {
               return false;
             });
         });

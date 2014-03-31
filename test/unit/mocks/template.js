@@ -1,3 +1,4 @@
+/* jshint -W098 */
 var Template = {
   card: {},
 
