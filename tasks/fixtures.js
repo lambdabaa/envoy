@@ -3,8 +3,9 @@
  */
 var _ = require('underscore'),
     Q = require('q'),
-    debug = require('debug'),
+    debug = require('debug')('envoy:fixtures'),
     exec = require('exec-sync'),
+    execf = require('./lib/execf'),
     format = require('util').format,
     fs = require('fs'),
     glob = require('glob'),
@@ -13,14 +14,17 @@ var _ = require('underscore'),
 module.exports = function(grunt) {
   grunt.registerTask('fixtures', function() {
     // Find mongo url.
-    var mongoUrl = exec(format('cd %s && meteor mongo -U', __dirname + '/../app'));
+    var mongoUrl = execf('cd %s && meteor mongo -U', __dirname + '/../build');
     mongoUrl = url.parse(mongoUrl.replace(/\s+/, ''));
-    debug('Read mongo url %s', mongoUrl);
+    debug('Read mongo url %s', JSON.stringify(mongoUrl));
     var db = mongoUrl.path.substring(1);
 
     // Read list of collections in fixtures.
     var collections = fs.readdirSync(__dirname + '/../fixtures');
+    debug('Loading collections: %s', collections.join(', '));
     collections.forEach(function(collection) {
+      debug('Next collection: %s', collection);
+
       // Read all JSON files from top level collection directory.
       var pattern = format('%s/../fixtures/%s/**/*.json', __dirname, collection);
       var files = glob.sync(pattern);
@@ -40,5 +44,7 @@ module.exports = function(grunt) {
 
       debug('Imported %d objects from %s', files.length, collection);
     });
+
+    debug('done');
   });
 };

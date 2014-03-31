@@ -1,5 +1,6 @@
 var _ = require('underscore'),
     exec = require('exec-sync'),
+    execf = require('./lib/execf'),
     format = require('util').format,
     glob = require('glob'),
     spawn = require('child_process').spawn;
@@ -39,26 +40,14 @@ module.exports = function(grunt) {
         // and non-instrumented code when we run tests.
         var temp = file.replace('.js', '.js.txt');
         var instrumented = file.replace('.js', '.cover.js');
-        exec(format(
+        execf(
           '%s instrument %s --output %s --embed-source true --compact false',
           ISTANBUL_PATH,
           file,
           instrumented
-        ));
-        exec(format('mv %s %s', file, temp));
+        );
+        execf('mv %s %s', file, temp);
       });
-    };
-
-    /**
-     * Delete instrumented code and restore original.
-     */
-    this.restore = function() {
-      this._files().forEach(function(file) {
-        var original = file.replace('.js.txt', '.js');
-        var instrumented = file.replace('.js.txt', '.cover.js');
-        exec(format('rm %s', instrumented));
-        exec(format('mv %s %s', file, original)); 
-      });  
     };
 
     /**
@@ -82,15 +71,15 @@ module.exports = function(grunt) {
      * Download coverage data from istanbul express server and kill server.
      */
     this.stopServer = function() {
-      exec(format(
+      execf(
         'wget --quiet -O %s %s',
         'coverage.zip',
         'http://localhost:8080/coverage/download'
-      ));
-      exec(format('fuser -s -n tcp -k %d', 8080));
+      );
+      execf('fuser -s -n tcp -k %d', 8080);
       var dir = __dirname + '/../coverage-browser';
-      exec(format('mkdir %s', dir));
-      exec(format('unzip coverage.zip -d %s', dir));
+      execf('mkdir %s', dir);
+      execf('unzip coverage.zip -d %s', dir);
     };
 
     this._files = function() {

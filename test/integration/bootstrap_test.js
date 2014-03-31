@@ -1,9 +1,8 @@
 var SeleniumServer = require('selenium-webdriver/remote').SeleniumServer,
-    exec = require('exec-sync'),
-    format = require('util').format,
+    debug = require('debug')('envoy:bootstrap_test'),
+    execf = require('../../tasks/lib/execf'),
     fs = require('fs'),
     http = require('http'),
-    debug = require('debug')('bootstrap_test'),
     rimraf = require('rimraf').sync,
     spawn = require('child_process').spawn,
     webdriver = require('selenium-webdriver');
@@ -13,9 +12,9 @@ var ROOT_PATH = __dirname + '/../..';
 var SELENIUM_JAR_PATH =
   ROOT_PATH + '/node_modules/selenium-standalone/.selenium/2.40.0/server.jar';
 
-var METEOR_PATH = ROOT_PATH + '/app';
+var METEOR_PATH = ROOT_PATH + '/build';
 
-var MONGO_PATH = ROOT_PATH + '/app/.meteor/local/db/';
+var MONGO_PATH = ROOT_PATH + '/build/.meteor/local/db/';
 
 global.ENVOY_BASE_PATH = 'http://localhost:3000';
 
@@ -41,6 +40,8 @@ beforeEach(function(done) {
 
   var stdout = [];
   meteor.stdout.on('data', function(chunk) {
+    debug('meteor: %s', chunk.toString());
+
     // Write to buffer.
     stdout.push(chunk);
     var data = Buffer.concat(stdout).toString();
@@ -54,7 +55,8 @@ beforeEach(function(done) {
     meteor.stdout.removeAllListeners('data');
 
     debug('Load fixtures.');
-    exec(format('cd %s && ./node_modules/.bin/grunt fixtures', ROOT_PATH));
+    execf('cd %s && ./node_modules/.bin/grunt fixtures', ROOT_PATH);
+
     debug('Begin selenium session.');
     driver = new webdriver
       .Builder()
