@@ -196,7 +196,7 @@ Card.prototype = {
       .click();
   },
 
-  toString: function(element) {
+  toString: function() {
     return JSON.stringify({
       name: this.name,
       color: this.color,

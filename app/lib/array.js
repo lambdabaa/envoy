@@ -13,7 +13,7 @@ array = {
 
   multireject: function(list, filters, context) {
     var result = list;
-    for (var i = 0; i < filters.length; i++) {
+    for (var i = 0; i < filters.length; i += 1) {
       var filter = filters[i];
       result = _.reject(result, filter, context);
     }

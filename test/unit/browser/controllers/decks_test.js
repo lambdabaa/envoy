@@ -1,5 +1,5 @@
 describe('decks', function() {
-  var subject, mockSession;
+  var subject;
 
   beforeEach(function() {
     subject = Template.decks;

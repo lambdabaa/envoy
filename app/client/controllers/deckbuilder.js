@@ -106,7 +106,7 @@ Template.deckbuilder.events({
     var input = template.find('.deckname-input');
     deck.name = input.value;
     Session.set('deck', deck);
-    Meteor.call('saveDeck', deck, {}, function(err, result) {
+    Meteor.call('saveDeck', deck, {}, function() {
       Router.go('Decks#show', { name: deck.name });
     });
   },
@@ -116,13 +116,13 @@ Template.deckbuilder.events({
    *  - if the deck doesn't already have a name, prompt the user to create one
    *  - else save the deck
    */
-  'click .save-deck': function(event, template) {
+  'click .save-deck': function() {
     var deck = Session.get('deck');
     if (!deck.name) {
       return window.alert('Please give your deck a name.');
     }
 
-    Meteor.call('saveDeck', deck, {}, function(err, result) {
+    Meteor.call('saveDeck', deck, {}, function() {
       Router.go('Decks#show', { name: deck.name });
     });
   },
@@ -130,7 +130,7 @@ Template.deckbuilder.events({
   /**
    * When the user clicks the trash button, delete the current deck.
    */
-  'click .trash-deck': function(event, template) {
+  'click .trash-deck': function() {
     if (window.confirm('Are you sure you want to delete this deck?')) {
       Session.set('deck', { list: [], name: null });
     }
@@ -139,7 +139,7 @@ Template.deckbuilder.events({
   /**
    * When the user clicks a card, try to insert it into the deck.
    */
-  'click .card': function(event, template) {
+  'click .card': function() {
     // Check whether or not this card is already in our deck.
     var deck = Session.get('deck');
     var list = deck.list;
@@ -160,7 +160,7 @@ Template.deckbuilder.events({
    * When the user clicks on a card in a deck,
    * remove one copy of the card from the deck.
    */
-  'click .deck-entry': function(event, template) {
+  'click .deck-entry': function() {
     var deck = Session.get('deck');
     var list = deck.list;
 
@@ -181,7 +181,7 @@ Template.deckbuilder.events({
   /**
    * When the user toggles a filter, recompute the applied filters.
    */
-  'click label': function(event, template) {
+  'click label': function(event) {
     var label = event.currentTarget;
     var input = label.childNodes[1];
     var filter = label.dataset.filter;

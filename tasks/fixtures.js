@@ -1,9 +1,7 @@
 /**
  * @fileoverview Seed mongodb with data from json files.
  */
-var _ = require('underscore'),
-    Q = require('q'),
-    debug = require('debug')('envoy:fixtures'),
+var debug = require('debug')('envoy:fixtures'),
     exec = require('exec-sync'),
     execf = require('./lib/execf'),
     format = require('util').format,
@@ -26,7 +24,11 @@ module.exports = function(grunt) {
       debug('Next collection: %s', collection);
 
       // Read all JSON files from top level collection directory.
-      var pattern = format('%s/../fixtures/%s/**/*.json', __dirname, collection);
+      var pattern = format(
+        '%s/../fixtures/%s/**/*.json',
+        __dirname,
+        collection
+      );
       var files = glob.sync(pattern);
       files.forEach(function(file) {
         debug('%s > %s', file, collection);

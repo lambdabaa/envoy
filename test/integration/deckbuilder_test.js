@@ -2,12 +2,10 @@ var Card = require('./lib/card'),
     DeckBuilder = require('./lib/deckbuilder'),
     Decks = require('./lib/decks'),
     Q = require('q'),
-    format = require('util').format,
     test = require('selenium-webdriver/testing'),
     url = require('url');
 
 var COLORS = ['blue', 'green', 'purple', 'red', 'white'];
-    webdriver = require('selenium-webdriver');
 
 test.describe('deckbuilder', function() {
   var deckbuilder;
@@ -26,6 +24,7 @@ test.describe('deckbuilder', function() {
       driver.getCurrentUrl()
     ])
     .spread(function(name, currentUrl) {
+      var pathname = url.parse(currentUrl).pathname;
       assert.strictEqual(name, 'Untitled');
       assert.strictEqual(pathname, '/decks/new');
     });
