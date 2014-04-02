@@ -71,10 +71,18 @@ module.exports = function(grunt) {
         },
         src: ['test/integration/**/*_test.js']
       }
+    },
+
+    watch: {
+      build: {
+        files: ['app/**/*'],
+        tasks: ['incremental']
+      }
     }
   });
 
   grunt.loadNpmTasks('grunt-contrib-jshint');
+  grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha');
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadTasks('./tasks');
