@@ -9,4 +9,20 @@ module.exports = function(grunt) {
     // TODO(gareth): Bundle the meteor app and push the app tarball to
     //     a docker container.
   });
+
+  // Do an "incremental build" when a file in app changes.
+  // This is lighter weight than a full "build".
+  grunt.registerTask('incremental', function() {
+    [
+      'client',
+      'lib',
+      'server'
+    ].forEach(function(dir) {
+      execf(
+        'cp -r %s %s',
+        __dirname + '/../app/' + dir,
+        __dirname + '/../build/'
+      );
+    });
+  });
 };
