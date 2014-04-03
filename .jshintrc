@@ -73,6 +73,7 @@
     "_": true,
     "Cards": true,
     "Decks": true,
+    "Games": true,
     "EJSON": true,
     "Handlebars": true,
     "Meteor": true,

@@ -73,6 +73,7 @@ module.exports = function(grunt) {
           'test/integration/bootstrap_test.js',
           'test/integration/deckbuilder_test.js',
           'test/integration/decks_test.js',
+          'test/integration/games_test.js',
           'test/integration/login_test.js'
         ]
       }
