@@ -275,7 +275,7 @@ test.describe('deckbuilder', function() {
       });
   });
 
-  test.it('should not allow up to four of a kind', function() {
+  test.it('should allow up to four of a kind', function() {
     var card;
     deckbuilder
       .cardpool()
