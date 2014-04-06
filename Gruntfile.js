@@ -69,7 +69,12 @@ module.exports = function(grunt) {
           require: 'test/setup.js',
           timeout: '60s'
         },
-        src: ['test/integration/**/*_test.js']
+        src: [
+          'test/integration/bootstrap_test.js',
+          'test/integration/deckbuilder_test.js',
+          'test/integration/decks_test.js',
+          'test/integration/login_test.js'
+        ]
       }
     },
 
