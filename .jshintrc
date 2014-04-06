@@ -81,6 +81,11 @@
     "Template": true,
     "array": true,
 
+    "APP_ID": true,
+    "APP_SECRET": true,
+    "DONNA": true,
+    "JOE": true,
+    "TOM": true,
     "ENVOY_BASE_PATH": true,
     "after": true,
     "afterEach": true,
