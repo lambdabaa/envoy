@@ -1,19 +1,5 @@
 Decks = new Meteor.Collection('decks');
 
-Decks.allow({
-  insert: function() {
-    return false;
-  },
-
-  update: function() {
-    return false;
-  },
-
-  remove: function() {
-    return true;
-  }
-});
-
 Meteor.methods({
   saveDeck: function(deck) {
     if (deck._id) {

@@ -19,7 +19,7 @@
     "istanbul": "0.2.x",
     "istanbul-middleware": "0.1.x",
     "meteorite": "0.7.x",
-    "mocha": "1.17.x",
+    "mocha": "1.18.x",
     "q": "1.0.x",
     "rimraf": "2.2.x",
     "selenium-standalone": "2.40.x",

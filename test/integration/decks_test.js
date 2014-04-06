@@ -1,31 +1,30 @@
 var Deck = require('./lib/deck'),
     DeckBuilder = require('./lib/deckbuilder'),
     Decks = require('./lib/decks'),
-    Q = require('q'),
-    test = require('selenium-webdriver/testing');
+    Q = require('q');
 
-test.describe('decks', function() {
+describe('decks', function() {
   var deckbuilder, decks;
 
-  test.before(function() {
+  before(function() {
     deckbuilder = new DeckBuilder();
     decks = new Decks();
   });
 
-  test.beforeEach(function() {
-    decks.launch();
+  beforeEach(function() {
+    return decks.launch();
   });
 
-  test.it('list should be initially empty', function() {
-    decks
+  it('list should be initially empty', function() {
+    return decks
       .getAll()
       .then(function(list) {
         assert.lengthOf(list, 0);
       });
   });
 
-  test.it('should list deck after deck save', function() {
-    deckbuilder
+  it('should list deck after deck save', function() {
+    return deckbuilder
       .launch()
       .then(function() {
         return deckbuilder.cardpool();
