@@ -1,5 +1,6 @@
 Meteor.subscribe('cards');
 Meteor.subscribe('decks');
+Meteor.subscribe('users');
 
 Router.configure({
   layoutTemplate: 'layout'

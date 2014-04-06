@@ -7,12 +7,7 @@ module.exports = {
       .get(url)
       .then(function() {
         return driver.wait(function() {
-          return driver
-            .findElement(webdriver.By.css(selector))
-            .isDisplayed()
-            .thenCatch(function() {
-              return false;
-            });
+          return driver.isElementPresent(webdriver.By.css(selector));
         });
       });
   }

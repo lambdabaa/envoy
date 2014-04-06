@@ -1,4 +1,6 @@
-var SeleniumServer = require('selenium-webdriver/remote').SeleniumServer,
+var Landing = require('./lib/landing'),
+    Login = require('./lib/facebook_login'),
+    SeleniumServer = require('selenium-webdriver/remote').SeleniumServer,
     debug = require('debug')('envoy:bootstrap_test'),
     execf = require('../../tasks/lib/execf'),
     http = require('http'),
@@ -19,18 +21,11 @@ global.ENVOY_BASE_PATH = 'http://localhost:3000';
 
 var meteor, selenium, driver;
 
-before(function() {
-  // Start selenium standalone server.
+before(function(done) {
+  debug('Start selenium standalone server.');
   selenium = new SeleniumServer(SELENIUM_JAR_PATH, { port: 4444 });
   selenium.start();
-});
 
-after(function() {
-  // Stop selenium standalone server.
-  selenium.stop();
-});
-
-beforeEach(function(done) {
   debug('Purge mongo database.');
   rimraf(MONGO_PATH);
 
@@ -53,9 +48,11 @@ beforeEach(function(done) {
     debug('Meteor ready.');
     meteor.stdout.removeAllListeners('data');
 
-    debug('Load fixtures.');
-    execf('cd %s && ./node_modules/.bin/grunt fixtures', ROOT_PATH);
-
+    // TODO(gareth): We configure Facebook login here since I'm not sure how
+    //     to purge the configuration after each test since it's hidden
+    //     behind the accounts-facebook package abstraction. We should
+    //     look into whether there's a stable way to reset state though.
+    debug('Configure FB login.');
     debug('Begin selenium session.');
     driver = new webdriver
       .Builder()
@@ -63,7 +60,24 @@ beforeEach(function(done) {
       .withCapabilities(webdriver.Capabilities.firefox())
       .build();
     global.driver = driver;
-    done();
+
+    var timeouts = new webdriver.WebDriver.Timeouts(driver);
+    timeouts
+      .setScriptTimeout(20000)
+      .then(function() {
+        var landing = new Landing();
+        return landing.launch();
+      })
+      .then(function() {
+        var login = new Login();
+        return login.configure();
+      })
+      .then(function() {
+        return driver.quit();
+      })
+      .then(function() {
+        done();
+      });
   });
 
   // TODO(gareth): For some reason our test suite
@@ -73,35 +87,78 @@ beforeEach(function(done) {
   });
 });
 
-afterEach(function(done) {
-  debug('End selenium session.');
+after(function(done) {
+  debug('Stop selenium standalone server.');
+  selenium.stop();
 
+  debug('Stop meteor server.');
+  meteor.on('exit', function() {
+    done();
+  });
+  meteor.kill();
+});
+
+beforeEach(function() {
+  debug('Load fixtures.');
+  execf('cd %s && ./node_modules/.bin/grunt fixtures', ROOT_PATH);
+
+  debug('Begin selenium session.');
+  driver = new webdriver
+    .Builder()
+    .usingServer(selenium.address())
+    .withCapabilities(webdriver.Capabilities.firefox())
+    .build();
+  global.driver = driver;
+
+  var timeouts = new webdriver.WebDriver.Timeouts(driver);
+  return timeouts.setScriptTimeout(20000);
+});
+
+afterEach(function() {
   debug('Grab coverage data from browser.');
-  driver
-    .executeScript('return window.__coverage__;')
-    .then(function(coverage) {
-      debug('Post coverage data to istanbul server.');
-      var options = {
-        host: 'localhost',
-        port: 8080,
-        path: '/coverage/client',
-        method: 'POST',
-        headers: {
-          'Content-Type': 'application/json'
-        }
-      };
-
-      var req = http.request(options, function() {
-        driver.quit();
-
-        debug('Stop meteor.');
-        meteor.kill();
-        meteor.on('exit', function() {
-          done();
+  return driver
+    .executeScript(function() {
+      return window.__coverage__;
+    })
+    .then(function(data) {
+      return postCoverageData(data);
+    })
+    .then(function() {
+      var landing = new Landing();
+      return landing.launch();
+    })
+    .then(function() {
+      debug('Reset collections.');
+      return driver.executeAsyncScript(function() {
+        var callback = arguments[arguments.length - 1];
+        Meteor.call('removeAll', function() {
+          callback();
         });
       });
-
-      req.write(JSON.stringify(coverage));
-      req.end();
+    })
+    .then(function() {
+      return driver.quit();
     });
 });
+
+// TODO(gareth): Ideally, we would wait for the request to finish before
+//     continuing to avoid race conditions. Interestingly, the POST
+//     request hangs, so we're not blocking on it at the moment, but
+//     it's possible that we could lose coverage data. Look into
+//     whether the slowdown is due to an issue in istanbul.
+function postCoverageData(data) {
+  debug('Post coverage data to istanbul server.');
+  var options = {
+    host: 'localhost',
+    port: 8080,
+    path: '/coverage/client',
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    }
+  };
+
+  var req = http.request(options);
+  req.write(JSON.stringify(data));
+  req.end();
+}

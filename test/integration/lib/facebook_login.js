@@ -1,4 +1,5 @@
 var Landing = require('./landing'),
+    debug = require('debug')('envoy:facebook_login'),
     webdriver = require('selenium-webdriver');
 
 function Login() {
@@ -7,12 +8,12 @@ module.exports = Login;
 
 Login.prototype = {
   configure: function() {
-    // Click the login link.
+    debug('Click the login link.');
     return driver
       .findElement(webdriver.By.css('#login-sign-in-link'))
       .click()
       .then(function() {
-        // Wait for the accounts dialog to pop up.
+        debug('Wait for the accounts dialog to pop up.');
         return driver.wait(function() {
           return driver
             .findElement(webdriver.By.css('.accounts-dialog'))
@@ -20,21 +21,21 @@ Login.prototype = {
         });
       })
       .then(function() {
-        // Click on the facebook button.
+        debug('Click on the facebook button.');
         return driver
           .findElement(webdriver.By.css('#login-buttons-facebook'))
           .click();
       })
       .then(function() {
         return driver.wait(function() {
-          // Wait for the login configuration dialog to pop up.
-          return driver
-            .findElement(webdriver.By.css('#configure-login-service-dialog'))
-            .isDisplayed();
+          debug('Wait for the login configuration dialog to pop up.');
+          return driver.isElementPresent(
+            webdriver.By.css('#configure-login-service-dialog')
+          );
         });
       })
-      // Fill in and submit the service configuration form.
       .then(function() {
+        debug('Fill in and submit the service configuration form.');
         return driver
           .findElement(webdriver.By.css(
             '#configure-login-service-dialog-appId'))
@@ -47,7 +48,7 @@ Login.prototype = {
           .sendKeys(APP_SECRET);
       })
       .then(function() {
-        // Wait for the save button to become enabled.
+        debug('Wait for the save button to become enabled.');
         return driver.wait(function() {
           return driver
             .findElement(webdriver.By.css(
@@ -101,7 +102,7 @@ Login.prototype = {
    */
   authorize: function(user) {
     // Go to facebook and log in.
-    driver
+    return driver
       .get('https://facebook.com')
       .then(function() {
         return driver

@@ -20,7 +20,11 @@ global.Meteor = {
 
   publish: function() {},
 
-  startup: function() {}
+  startup: function() {},
+
+  users: {
+    allow: function() {}
+  }
 };
 
 global.Npm = {
