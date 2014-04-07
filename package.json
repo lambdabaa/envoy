@@ -15,7 +15,7 @@
     "grunt-contrib-jshint": "0.8.x",
     "grunt-contrib-watch": "0.6.x",
     "grunt-mocha": "0.4.x",
-    "grunt-mocha-test": "0.9.x",
+    "grunt-mocha-test": "0.10.x",
     "istanbul": "0.2.x",
     "istanbul-middleware": "0.1.x",
     "meteorite": "0.7.x",
