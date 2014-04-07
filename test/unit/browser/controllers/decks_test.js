@@ -5,11 +5,6 @@ describe('decks', function() {
     subject = Template.decks;
   });
 
-  describe('#decks', function() {
-    it.skip('should fetch all logged in user decks', function() {
-    });
-  });
-
   describe('#cardCount', function() {
     it('should equal the sum of the entry counts', function() {
       assert.equal(subject.cardCount({
