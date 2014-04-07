@@ -15,11 +15,6 @@ describe('deckbuilder', function() {
     });
   });
 
-  describe('#decks', function() {
-    it.skip('should fetch all logged in user decks', function() {
-    });
-  });
-
   describe('#isClean', function() {
     it('should be clean if list length 0', function() {
       var stub = sinon.stub(Session, 'get');
