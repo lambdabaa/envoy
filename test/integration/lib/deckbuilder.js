@@ -174,5 +174,21 @@ DeckBuilder.prototype = {
       .then(function(elements) {
         return Q.all(elements.map(Card.fromDeck));
       });
+  },
+
+  /**
+   * Options:
+   *   (String) name deck name.
+   */
+  createDeck: function(options) {
+    var self = this;
+    return self.cardpool()
+      .then(function(cards) {
+        var target = cards[0];
+        return target.click();
+      })
+      .then(function() {
+        return self.setName(options.name || 'test');
+      });
   }
 };

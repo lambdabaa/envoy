@@ -1,5 +1,6 @@
 Meteor.subscribe('cards');
 Meteor.subscribe('decks');
+Meteor.subscribe('games');
 Meteor.subscribe('users');
 
 Router.configure({
@@ -27,4 +28,6 @@ Router.map(function() {
       Session.set('deck', deck);
     }
   });
+
+  this.route('Games#index', { path: '/games', template: 'games' });
 });
