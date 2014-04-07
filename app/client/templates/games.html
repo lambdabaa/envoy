@@ -1,0 +1,78 @@
+<template name="games">
+  <div id="games" class="container">
+    <div class="btn btn-default btn-default btn-lg create-game" data-toggle="modal" data-target="#create-game-dialog">
+      <span class="glyphicon glyphicon-plus"></span> Create New
+    </div>
+
+    <table class="table table-striped">
+      <thead>
+        <tr>
+          <th>Host</th>
+          <th>Opponent</th>
+          <th>Status</th>
+        </tr>
+      </thead>
+      <tbody>
+        {{#each games}}
+          <tr class="game">
+            <td name="host">{{host this}}</td>
+            <td name="opponent">{{opponent this}}</td>
+            <td name="status">{{{status this}}}</td>
+          </tr>
+        {{/each}}
+      </tbody>
+    </table>
+  </div>
+
+  <section id="create-game">
+    <div id="create-game-dialog" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Configure game</h4>
+          </div>
+
+          <form class="configure-game">
+            <div class="modal-body">
+              <div>Deck</div>
+              {{#each decks}}
+                <input type="radio" name="deckname" value="{{name}}"> {{name}} <br />
+              {{/each}}
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" data-dismiss="modal">Create</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section id="choose-deck">
+    <div id="choose-deck-dialog" class="modal fade">
+      <div class="modal-dialog">
+        <div class="modal-content">
+          <div class="modal-header">
+            <button class="close" data-dismiss="modal" aria-hidden="true">&times;</button>
+            <h4 class="modal-title">Configure game</h4>
+          </div>
+
+          <form class="select-deck">
+            <div class="modal-body">
+              <div>Deck</div>
+              {{#each decks}}
+                <input type="radio" name="deckname" value="{{name}}"> {{name}} <br />
+              {{/each}}
+            </div>
+
+            <div class="modal-footer">
+              <button type="submit" class="btn btn-primary" data-dismiss="modal">Join</button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </section>
+</template>

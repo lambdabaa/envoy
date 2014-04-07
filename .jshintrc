@@ -70,9 +70,11 @@
   "white"         : false,    // true: Check against strict whitespace and indentation rules
 
   "globals"       : {
+    "$": true,
     "_": true,
     "Cards": true,
     "Decks": true,
+    "Games": true,
     "EJSON": true,
     "Handlebars": true,
     "Meteor": true,
@@ -92,6 +94,7 @@
     "assert": true,
     "before": true,
     "beforeEach": true,
+    "client": true,
     "driver": true,
     "describe": true,
     "it": true,

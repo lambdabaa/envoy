@@ -53,12 +53,7 @@ before(function(done) {
     //     behind the accounts-facebook package abstraction. We should
     //     look into whether there's a stable way to reset state though.
     debug('Configure FB login.');
-    debug('Begin selenium session.');
-    driver = new webdriver
-      .Builder()
-      .usingServer(selenium.address())
-      .withCapabilities(webdriver.Capabilities.firefox())
-      .build();
+    driver = client();
     global.driver = driver;
 
     var timeouts = new webdriver.WebDriver.Timeouts(driver);
@@ -102,12 +97,7 @@ beforeEach(function() {
   debug('Load fixtures.');
   execf('cd %s && ./node_modules/.bin/grunt fixtures', ROOT_PATH);
 
-  debug('Begin selenium session.');
-  driver = new webdriver
-    .Builder()
-    .usingServer(selenium.address())
-    .withCapabilities(webdriver.Capabilities.firefox())
-    .build();
+  driver = client();
   global.driver = driver;
 
   var timeouts = new webdriver.WebDriver.Timeouts(driver);
@@ -140,6 +130,16 @@ afterEach(function() {
       return driver.quit();
     });
 });
+
+function client() {
+  debug('Begin selenium session.');
+  return new webdriver
+    .Builder()
+    .usingServer(selenium.address())
+    .withCapabilities(webdriver.Capabilities.firefox())
+    .build();
+}
+global.client = client;
 
 // TODO(gareth): Ideally, we would wait for the request to finish before
 //     continuing to avoid race conditions. Interestingly, the POST

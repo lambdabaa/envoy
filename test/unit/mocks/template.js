@@ -4,5 +4,7 @@ var Template = {
 
   deckbuilder: {},
 
-  decks: {}
+  decks: {},
+
+  games: {}
 };

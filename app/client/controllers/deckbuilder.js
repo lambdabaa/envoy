@@ -106,7 +106,7 @@ Template.deckbuilder.events({
     var input = template.find('.deckname-input');
     deck.name = input.value;
     Session.set('deck', deck);
-    Meteor.call('saveDeck', deck, {}, function() {
+    Meteor.call('saveDeck', deck, function() {
       Router.go('Decks#show', { name: deck.name });
     });
   },

@@ -1,12 +1,25 @@
+/**
+ * (String) creator userId of deck owner.
+ * (Array) list cards in deck.
+ * (String) name title of deck.
+ */
 Decks = new Meteor.Collection('decks');
 
 Meteor.methods({
-  saveDeck: function(deck) {
-    if (deck._id) {
-      return Decks.update({ _id: deck._id }, deck);
+  /**
+   * Options:
+   *   (Array) list cards in deck.
+   *   (String) name title of deck.
+   */
+  saveDeck: function(options) {
+    if (options._id) {
+      return Decks.update({ _id: options._id }, options);
     }
 
+    var deck = {};
     deck.creator = this.userId;
-    return Decks.insert(deck);
+    deck.list = options.list;
+    deck.name = options.name;
+    Decks.insert(deck);
   }
 });
