@@ -7,7 +7,6 @@ module.exports = function(grunt) {
         'Gruntfile.js',
         'app/client/**/*.js',
         'app/lib/**/*.js',
-        'app/private/**/*.js',
         'app/server/**/*.js',
         'tasks/**/*.js',
         'test/**/*.js'
@@ -15,6 +14,22 @@ module.exports = function(grunt) {
 
       options: {
         jshintrc: true
+      }
+    },
+
+    complexity: {
+      generic: {
+        src: [
+          'app/client/**/*.js',
+          'app/lib/**/*.js',
+          'app/server/**/*.js',
+          'tasks/**/*.js',
+          'test/**/*.js'
+        ],
+        options: {
+          cyclomatic: 7,
+          halstead: 13
+        }
       }
     },
 
@@ -86,6 +101,7 @@ module.exports = function(grunt) {
     }
   });
 
+  grunt.loadNpmTasks('grunt-complexity');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha');
@@ -93,6 +109,7 @@ module.exports = function(grunt) {
   grunt.loadTasks('./tasks');
   grunt.task.registerTask('default', [
     'jshint',                // Lint
+    'complexity',
     'istanbul:mocha',        // Server-side unit test suite
     // Instrument all the things and start the coverage server
     // before we run unit and integration tests in the browser.
