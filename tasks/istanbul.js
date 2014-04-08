@@ -54,7 +54,7 @@ module.exports = function(grunt) {
      * Start express server with istanbul connect middleware.
      */
     this.startServer = function() {
-      var server = spawn('./istanbul_server.js', [], {
+      var server = spawn('node', ['istanbul_server.js'], {
         cwd: __dirname + '/lib',
         detached: true,
         stdio: 'ignore'
