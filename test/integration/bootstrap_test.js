@@ -1,6 +1,7 @@
 var Landing = require('./lib/landing'),
     Login = require('./lib/facebook_login'),
     SeleniumServer = require('selenium-webdriver/remote').SeleniumServer,
+    Q = require('q'),
     debug = require('debug')('envoy:bootstrap_test'),
     execf = require('../../tasks/lib/execf'),
     http = require('http'),
@@ -105,13 +106,13 @@ beforeEach(function() {
 });
 
 afterEach(function() {
-  debug('Grab coverage data from browser.');
   return driver
-    .executeScript(function() {
-      return window.__coverage__;
-    })
-    .then(function(data) {
-      return postCoverageData(data);
+    .quit()
+    .then(function() {
+      // Start another driver to clear the database.
+      global.driver = driver = client();
+      var timeouts = new webdriver.WebDriver.Timeouts(driver);
+      return timeouts.setScriptTimeout(20000);
     })
     .then(function() {
       var landing = new Landing();
@@ -133,21 +134,36 @@ afterEach(function() {
 
 function client() {
   debug('Begin selenium session.');
-  return new webdriver
+  var result = new webdriver
     .Builder()
     .usingServer(selenium.address())
     .withCapabilities(webdriver.Capabilities.firefox())
     .build();
+
+  // Decorate driver.quit() with calls to grab the
+  // coverage object from the browser and post it.
+  var quit = result.quit.bind(result);
+  result.quit = function() {
+    debug('Grab coverage data from browser.');
+    return this
+      .executeScript(function() {
+        return window.__coverage__;
+      })
+      .then(function(data) {
+        return postCoverageData(data);
+      })
+      .then(function() {
+        return quit();
+      });
+  };
+
+  return result;
 }
 global.client = client;
 
-// TODO(gareth): Ideally, we would wait for the request to finish before
-//     continuing to avoid race conditions. Interestingly, the POST
-//     request hangs, so we're not blocking on it at the moment, but
-//     it's possible that we could lose coverage data. Look into
-//     whether the slowdown is due to an issue in istanbul.
 function postCoverageData(data) {
   debug('Post coverage data to istanbul server.');
+  var deferred = Q.defer();
   var options = {
     host: 'localhost',
     port: 8080,
@@ -159,6 +175,19 @@ function postCoverageData(data) {
   };
 
   var req = http.request(options);
+  req.once('response', function(message) {
+    message.on('data', function() {});
+    message.once('end', function() {
+      debug('Coverage data posted (%d).', message.statusCode);
+      deferred.resolve();
+    });
+  });
+  req.once('error', function(error) {
+    deferred.reject(error);
+  });
+
   req.write(JSON.stringify(data));
   req.end();
+
+  return deferred.promise;
 }
