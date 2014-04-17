@@ -54,7 +54,6 @@ test/integration/            # <= integration test cases
 test/unit/                   # <= unit test cases
 test/unit/browser/           # <= unit tests for client-side code
 test/unit/mocks/             # <= unit test mocks
-test/unit/nodejs/            # <= unit tests for server-side code
 test/unit/shared/            # <= unit tests for shared code
 ```
 
@@ -62,35 +61,49 @@ test/unit/shared/            # <= unit tests for shared code
 
 To run envoy locally, you must first globally install:
 
-+ firefox
-+ java
 + meteor
 + mongodb
+
+Additionally, in order to run the full test suite, you need:
+
++ firefox
++ java
 + xvfb
 
 Then...
 
 ```
-// Install dependencies
 npm install
-cd app && ../node_modules/.bin/mrt install
+
+// Copy app into build/ directory
+./node_modules/.bin/grunt build:default
 
 // Run meteor
-cd app && meteor
+cd build && meteor
 
 // In another terminal session, you can load some fixture data
-./node_modules/.bin/grunt fixtures
+./node_modules/.bin/grunt fixtures:default
 ```
+
+This will start meteor on port 3000. Open up the app in your browser by navigating to `http://localhost:3000`.
+
+### Development Tips
+
++ In order to enable Facebook login, click the "Sign In" link on the top right hand corner and enter our fake app id `641806779225581` and secret `8c12107ae123b8f8d1188e87fcb95a17` in the configuration popup.
++ You can enable live updates to your meteor server as you make changes to the app by running `./node_modules/.bin/grunt watch` in another terminal session.
++ If you would like to test interactions with multiple facebook users, we have some test users configured in `test/setup.js`. You can create even more at `https://developers.facebook.com`. Ask Gareth to add you to the test Facebook app.
 
 ### Tests
 
 To run the lint and test suites:
 
 ```
-// Install app, test dependencies
 npm install
-cd app && ../node_modules/.bin/mrt install
-
-// Run lint, unit, and integration tests (in xvfb)
-xvfb-run npm test
+./node_modules/.bin/grunt --force
 ```
+
+### Testing Tips
+
++ If you abort the test suite before it finishes, you may have left a code coverage server running in the background. You can kill it with `./node_modules/.bin/grunt istanbul:stopServer`.
++ The tests leave some artifacts laying around after they run. Namely, the test's build and code coverage reports remain in `builddir/`, `coverage/`, and `coverage-browser/`. They won't bother anyone, but if you get annoyed you can clean them up with `./node_modules/.bin/grunt clean:test`.
++ If you'd like to view the code coverage reports, you can run the test suite and then start a web server rooted at `coverage/` or `coverage-browser/`. `coverage/` has coverage data for javascript run on node.js whereas `coverage-browser/` has coverage data for javascript run in the browser. Once you've launched your web server, navigate to it in your browser and open `lcov-report/index.html`.
