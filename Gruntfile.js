@@ -33,6 +33,36 @@ module.exports = function(grunt) {
       }
     },
 
+    build: {
+      default: {
+        dir: 'build/'
+      },
+
+      test: {
+        dir: 'buildtest/'
+      }
+    },
+
+    clean: {
+      default: {
+        dir: 'build/'
+      },
+
+      test: {
+        dir: 'buildtest/'
+      }
+    },
+
+    fixtures: {
+      default: {
+        dir: 'build/'
+      },
+
+      test: {
+        dir: 'buildtest/'
+      }
+    },
+
     istanbul: {
       // Server-side unit tests with mocha
       mocha: {
@@ -52,15 +82,8 @@ module.exports = function(grunt) {
       // Instrument javascript
       instrument: {
         paths: [
-          'build/client/**/*.js',
-          'build/lib/**/*.js'
-        ]
-      },
-
-      restore: {
-        paths: [
-          'app/client/**/*.js.txt',
-          'app/lib/**/*.js.txt'
+          'buildtest/client/**/*.js',
+          'buildtest/lib/**/*.js'
         ]
       }
     },
@@ -115,7 +138,7 @@ module.exports = function(grunt) {
     // Instrument all the things and start the coverage server
     // before we run unit and integration tests in the browser.
     // We will post data to the coverage server from the browser.
-    'build',
+    'build:test',
     'istanbul:instrument',
     'istanbul:startServer',
     'mocha',                 // Client-side unit test suite

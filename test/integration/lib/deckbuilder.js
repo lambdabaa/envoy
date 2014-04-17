@@ -102,13 +102,6 @@ DeckBuilder.prototype = {
       .then(function() {
         return driver
           .findElement(webdriver.By.css('#control-panel .save-deck'))
-          .then(function(element) {
-            return element.isDisplayed();
-          });
-      })
-      .then(function() {
-        return driver
-          .findElement(webdriver.By.css('#control-panel .save-deck'))
           .click();
       });
   },

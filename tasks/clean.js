@@ -1,11 +1,13 @@
 var execf = require('./lib/execf');
 
 module.exports = function(grunt) {
-  grunt.registerTask('clean', function() {
+  grunt.registerMultiTask('clean', function() {
+    var builddir = this.data.dir;
+
     [
       '*.tar.gz',
       '*.zip',
-      'build/',
+      builddir,
       'coverage/',
       'coverage-browser/'
     ].forEach(function(path) {

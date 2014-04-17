@@ -1,31 +1,28 @@
 var execf = require('./lib/execf');
 
 module.exports = function(grunt) {
-  grunt.registerTask('build', function() {
+  grunt.registerMultiTask('build', function() {
     // 1. Copy the source tree into a temporary, build directory.
-    execf('cp -r %s %s', __dirname + '/../app/', __dirname + '/../build/');
+    var appdir = __dirname + '/../app/';
+    var builddir = __dirname + '/../' + this.data.dir;
+    execf('cp -r %s %s', appdir, builddir);
+
     // 2. Run |mrt install|.
-    execf(
-      'cd %s && ../node_modules/.bin/mrt install',
-      __dirname + '/../build/'
-    );
-    // TODO(gareth): Bundle the meteor app and push the app tarball to
-    //     a docker container.
+    execf('cd %s && ../node_modules/.bin/mrt install', builddir);
   });
 
   // Do an "incremental build" when a file in app changes.
   // This is lighter weight than a full "build".
   grunt.registerTask('incremental', function() {
+    var appdir = __dirname + '/../app/';
+    var builddir = __dirname + '/../build/';
+
     [
       'client',
       'lib',
       'server'
     ].forEach(function(dir) {
-      execf(
-        'cp -r %s %s',
-        __dirname + '/../app/' + dir,
-        __dirname + '/../build/'
-      );
+      execf('cp -r %s %s', appdir + dir, builddir);
     });
   });
 };
