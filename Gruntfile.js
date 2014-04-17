@@ -132,6 +132,7 @@ module.exports = function(grunt) {
   grunt.loadNpmTasks('grunt-mocha-test');
   grunt.loadTasks('./tasks');
   grunt.task.registerTask('default', [
+    'clean:test',
     'jshint',                // Lint
     'complexity',
     'istanbul:mocha',        // Server-side unit test suite
