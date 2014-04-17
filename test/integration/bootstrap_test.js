@@ -14,11 +14,11 @@ var ROOT_PATH = __dirname + '/../..';
 var SELENIUM_JAR_PATH =
   ROOT_PATH + '/node_modules/selenium-standalone/.selenium/2.40.0/server.jar';
 
-var METEOR_PATH = ROOT_PATH + '/build';
+var METEOR_PATH = ROOT_PATH + '/buildtest';
 
-var MONGO_PATH = ROOT_PATH + '/build/.meteor/local/db/';
+var MONGO_PATH = ROOT_PATH + '/buildtest/.meteor/local/db/';
 
-global.ENVOY_BASE_PATH = 'http://localhost:3000';
+global.ENVOY_BASE_PATH = 'http://localhost:4000';
 
 var meteor, selenium, driver;
 
@@ -31,7 +31,7 @@ before(function(done) {
   rimraf(MONGO_PATH);
 
   debug('Start meteor.');
-  meteor = spawn('meteor', [], { cwd: METEOR_PATH });
+  meteor = spawn('meteor', ['--port', '4000'], { cwd: METEOR_PATH });
 
   var stdout = [];
   meteor.stdout.on('data', function(chunk) {
@@ -96,7 +96,7 @@ after(function(done) {
 
 beforeEach(function() {
   debug('Load fixtures.');
-  execf('cd %s && ./node_modules/.bin/grunt fixtures', ROOT_PATH);
+  execf('cd %s && ./node_modules/.bin/grunt fixtures:test', ROOT_PATH);
 
   driver = client();
   global.driver = driver;

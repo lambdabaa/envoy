@@ -10,9 +10,11 @@ var debug = require('debug')('envoy:fixtures'),
     url = require('url');
 
 module.exports = function(grunt) {
-  grunt.registerTask('fixtures', function() {
+  grunt.registerMultiTask('fixtures', function() {
+    var builddir = __dirname + '/../' + this.data.dir;
+
     // Find mongo url.
-    var mongoUrl = execf('cd %s && meteor mongo -U', __dirname + '/../build');
+    var mongoUrl = execf('cd %s && meteor mongo -U', builddir);
     mongoUrl = url.parse(mongoUrl.replace(/\s+/, ''));
     debug('Read mongo url %s', JSON.stringify(mongoUrl));
     var db = mongoUrl.path.substring(1);
