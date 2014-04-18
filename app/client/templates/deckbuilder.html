@@ -8,10 +8,10 @@
             <div class="btn btn-primary load-deck" data-toggle="modal" data-target="#load-dialog">
               <span class="glyphicon glyphicon-cloud-download"></span> Load Saved
             </div>
-            <div class="btn btn-danger save-deck" {{#if isClean}}disabled{{/if}}>
+            <div class="btn btn-danger save-deck" disabled={{isDisabled}}>
               <span class="glyphicon glyphicon-cloud-upload"></span> Save Deck
             </div>
-            <div class="btn btn-default trash-deck" {{#if isClean}}disabled{{/if}}>
+            <div class="btn btn-default trash-deck" disabled={{isDisabled}}>
               <span class="glyphicon glyphicon-trash"></span> Discard Draft
             </div>
           </span>
@@ -75,17 +75,17 @@
             <th>Card Type</th>
             <th>Energy Cost</th>
           </tr>
-          <tbody>
-            {{#each deck}}
-              <tr class="deck-entry" name="{{name}}">
-                <td name="count">{{count}}</td>
-                <td name="name">{{name}}</td>
-                <td name="cardtype">{{formatCardtype this}}</td>
-                <td name="cost">{{formatCost this}}</td>
-              </tr>
-            {{/each}}
-          </tbody>
         </thead>
+        <tbody>
+          {{#each deck}}
+            <tr class="deck-entry" name="{{name}}">
+              <td name="count">{{count}}</td>
+              <td name="name">{{name}}</td>
+              <td name="cardtype">{{formatCardtype this}}</td>
+              <td name="cost">{{formatCost this}}</td>
+            </tr>
+          {{/each}}
+        </tbody>
       </table>
     </section>
 

@@ -15,19 +15,25 @@ describe('deckbuilder', function() {
     });
   });
 
-  describe('#isClean', function() {
-    it('should be clean if list length 0', function() {
-      var stub = sinon.stub(Session, 'get');
-      stub.withArgs('deck').returns({ list: [] });
-      assert.ok(subject.isClean());
+  describe('#isDisabled', function() {
+    var stub;
+
+    beforeEach(function() {
+      stub = sinon.stub(Session, 'get');
+    });
+
+    afterEach(function() {
       Session.get.restore();
     });
 
-    it('should be dirty if list length >0', function() {
-      var stub = sinon.stub(Session, 'get');
+    it('should be disabled if list length 0', function() {
+      stub.withArgs('deck').returns({ list: [] });
+      assert.ok(subject.isDisabled());
+    });
+
+    it('should be enabled if list length >0', function() {
       stub.withArgs('deck').returns({ list: [{}] });
-      assert.notOk(subject.isClean());
-      Session.get.restore();
+      assert.notOk(subject.isDisabled());
     });
   });
 

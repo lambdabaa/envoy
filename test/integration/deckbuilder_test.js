@@ -57,7 +57,6 @@ describe('deckbuilder', function() {
           assert.typeOf(card.name, 'string');
           assert.ok(card.name.length > 0, 'should have nonzero length name');
           assert.include(COLORS, card.color);
-          assert.typeOf(card.image, 'string');
           assert.typeOf(card.cardtype, 'string');
           assert.typeOf(card.cost, 'object');
           if ('color' in card.cost) {

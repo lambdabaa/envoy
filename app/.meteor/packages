@@ -2,7 +2,6 @@ accounts-facebook
 accounts-password
 accounts-ui
 bootstrap-3
-preserve-inputs
 iron-router
 standard-app-packages
 underscore

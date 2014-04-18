@@ -24,7 +24,7 @@ Template.deckbuilder.decks = function() {
   return Decks.find().fetch();
 };
 
-Template.deckbuilder.isClean = function() {
+Template.deckbuilder.isDisabled = function() {
   var deck = Session.get('deck');
   return !deck || deck.list.length === 0;
 };

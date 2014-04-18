@@ -81,6 +81,7 @@
     "Router": true,
     "Session": true,
     "Template": true,
+    "UI": true,
     "array": true,
 
     "APP_ID": true,
