@@ -12,8 +12,8 @@
       </thead>
       <tbody>
         {{#each decks}}
-          <tr class="deck">
-            <td name="name"><a href="/decks/{{encodeURIComponent name}}}/">{{name}}</a></td>
+          <tr class="deck" name="{{name}}">
+            <td name="name"><a href="/decks/{{encodeURIComponent name}}/">{{name}}</a></td>
             <td name="cards">{{cardCount this}}</td>
             <td name="colors">{{colors this}}</td>
           </tr>
