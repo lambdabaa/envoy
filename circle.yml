@@ -4,4 +4,3 @@ machine:
 test:
   post:
     - "mv coverage $CIRCLE_ARTIFACTS"
-    - "mv coverage-browser $CIRCLE_ARTIFACTS"

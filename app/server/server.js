@@ -1,3 +1,5 @@
+/* global Cards, Decks, Games */
+
 Meteor.publish('cards', function() {
   return Cards.find({});
 });

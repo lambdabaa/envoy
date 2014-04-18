@@ -1,3 +1,5 @@
+/* global Decks */
+
 Template.decks.decks = function() {
   return Decks.find();
 };

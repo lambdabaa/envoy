@@ -1,13 +1,15 @@
 var DeckBuilder = require('./lib/deckbuilder'),
     FacebookLogin = require('./lib/facebook_login'),
+    Gameplay = require('./lib/gameplay'),
     Games = require('./lib/games'),
     debug = require('debug')('envoy:games_test');
 
 describe('games', function() {
-  var deckbuilder, games, login;
+  var deckbuilder, gameplay, games, login;
 
   beforeEach(function() {
     deckbuilder = new DeckBuilder();
+    gameplay = new Gameplay();
     games = new Games();
     login = new FacebookLogin();
     return login
@@ -54,11 +56,9 @@ describe('games', function() {
 
       beforeEach(function() {
         previous = driver;
-
-        // TODO(gareth): Create another way to tell the views which driver
-        //     to use. Overriding the global driver not so good.
         second = client();
-        global.driver = second;
+        switchToClient(second);
+
         login
           .authorize(JOE)
           .then(function() {
@@ -73,7 +73,7 @@ describe('games', function() {
       });
 
       afterEach(function() {
-        global.driver = previous;
+        switchToClient(previous);
         return second.quit();
       });
 
@@ -90,6 +90,11 @@ describe('games', function() {
             return games.joinGameAt(0, 'ratmouse');
           })
           .then(function() {
+            return gameplay.waitUntilLoaded();
+          })
+          .then(function() {
+            // Switch back to the "host" driver.
+            switchToClient(previous);
             return games.getAll();
           })
           .then(function(list) {

@@ -1,3 +1,5 @@
+/* global Decks, Games */
+
 Meteor.startup(function() {
   Router.configure({
     layoutTemplate: 'layout'
@@ -65,6 +67,26 @@ Meteor.startup(function() {
       waitOn: function() {
         return [
           Meteor.subscribe('decks'),
+          Meteor.subscribe('games'),
+          Meteor.subscribe('users')
+        ];
+      }
+    });
+
+    this.route('Games#show', {
+      path: '/games/:id',
+      template: 'game',
+      action: function() {
+        if (!this.ready()) {
+          return;
+        }
+
+        var game = Games.findOne({ _id: this.params.id });
+        Session.set('game.game', game);
+        return this.render();
+      },
+      waitOn: function() {
+        return [
           Meteor.subscribe('games'),
           Meteor.subscribe('users')
         ];

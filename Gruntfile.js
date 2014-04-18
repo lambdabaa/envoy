@@ -28,7 +28,8 @@ module.exports = function(grunt) {
         ],
         options: {
           cyclomatic: 7,
-          halstead: 13
+          halstead: 13,
+          maintainability: 90
         }
       }
     },
@@ -50,7 +51,6 @@ module.exports = function(grunt) {
         '*.zip',
         'buildtest/',
         'coverage/',
-        'coverage-browser/'
       ]
     },
 
@@ -65,14 +65,6 @@ module.exports = function(grunt) {
     },
 
     istanbul: {
-      // Server-side unit tests with mocha
-      mocha: {
-        paths: [
-          'test/unit/nodejs/**/*.js',
-          'test/unit/shared/**/*.js'
-        ]
-      },
-
       // Bring up express server with istanbul connect middleware
       startServer: {},
 
@@ -83,7 +75,8 @@ module.exports = function(grunt) {
       // Instrument javascript
       instrument: {
         paths: [
-          'buildtest/client/**/*.js',
+          'buildtest/client/*.js',
+          'buildtest/client/controllers/*.js',
           'buildtest/lib/**/*.js'
         ]
       }
@@ -112,6 +105,7 @@ module.exports = function(grunt) {
           'test/integration/bootstrap_test.js',
           'test/integration/deckbuilder_test.js',
           'test/integration/decks_test.js',
+          'test/integration/game_test.js',
           'test/integration/games_test.js',
           'test/integration/login_test.js'
         ]
@@ -137,7 +131,6 @@ module.exports = function(grunt) {
     'clean:test',
     'jshint',                // Lint
     'complexity',
-    'istanbul:mocha',        // Server-side unit test suite
     // Instrument all the things and start the coverage server
     // before we run unit and integration tests in the browser.
     // We will post data to the coverage server from the browser.

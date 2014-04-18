@@ -1,0 +1,88 @@
+<template name="game">
+  <div id="game" class="container">
+    <div class="infobar">
+      <div class="inspect">
+        {{#with inspect}}
+          {{> card}}
+        {{/with}}
+      </div>
+      <div class="report">
+      </div>
+    </div>
+
+    <div class="board">
+      <div class="field field-them">
+        <div class="tray tray-them">
+          <div class="tray-data">
+            <div class="name">{{them}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="life">Life: {{life 'them'}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="deck">Deck: {{deckCount 'them'}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="hand">Hand: {{handCount 'them'}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="graveyard">Graveyard: {{graveyardCount 'them'}}</div>
+          </div>
+
+          <div class="energy">
+            <div class="energy-color blue">{{blue 'them'}}</div>
+            <div class="energy-color green">{{green 'them'}}</div>
+            <div class="energy-color purple">{{purple 'them'}}</div>
+            <div class="energy-color red">{{red 'them'}}</div>
+            <div class="energy-color white">{{white 'them'}}</div>
+          </div>
+          <div class="deck deck-them">Deck</div>
+          <div class="graveyard graveyard-them">Grave</div>
+        </div>
+
+        {{#each field 'them'}}
+          {{> card}}
+        {{/each}}
+      </div>
+      <div class="field field-me">
+        <div class="tray tray-me">
+          <div class="tray-data">
+            <div class="name">{{me}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="life">Life: {{life 'me'}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="deck">Deck: {{deckCount 'me'}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="hand">Hand: {{handCount 'me'}}</div>
+          </div>
+          <div class="tray-data">
+            <div class="graveyard">Graveyard: {{graveyardCount 'me'}}</div>
+          </div>
+
+          <div class="energy">
+            <div class="energy-color blue">{{blue 'me'}}</div>
+            <div class="energy-color green">{{green 'me'}}</div>
+            <div class="energy-color purple">{{purple 'me'}}</div>
+            <div class="energy-color red">{{red 'me'}}</div>
+            <div class="energy-color white">{{white 'me'}}</div>
+          </div>
+          <div class="deck deck-me">Deck</div>
+          <div class="graveyard graveyard-me">Grave</div>
+        </div>
+
+        {{#each field 'me'}}
+          {{> card}}
+        {{/each}}
+      </div>
+
+      <div class="hand">
+        {{#each hand}}
+          {{> card}}
+        {{/each}}
+      </div>
+    </div>
+  </div>
+</template>

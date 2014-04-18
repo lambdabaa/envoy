@@ -1,3 +1,5 @@
+/* global Cards, Decks, Games */
+
 Meteor.methods({
   // Test-only method to reset the database.
   removeAll: function(callback) {

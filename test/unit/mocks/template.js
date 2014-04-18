@@ -6,5 +6,11 @@ var Template = {
 
   decks: {},
 
+  game: {},
+
   games: {}
 };
+
+Object.keys(Template).forEach(function(name) {
+  Template[name].events = function() {};
+});

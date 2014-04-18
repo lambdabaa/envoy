@@ -1,14 +1,19 @@
 var webdriver = require('selenium-webdriver');
 
-module.exports = {
+var view = {
   launch: function(path, selector) {
     var url = ENVOY_BASE_PATH + path;
     return driver
       .get(url)
       .then(function() {
-        return driver.wait(function() {
-          return driver.isElementPresent(webdriver.By.css(selector));
-        });
+        return view.waitUntilLoaded(selector);
       });
+  },
+
+  waitUntilLoaded: function(selector) {
+    return driver.wait(function() {
+      return driver.isElementPresent(webdriver.By.css(selector));
+    });
   }
 };
+module.exports = view;

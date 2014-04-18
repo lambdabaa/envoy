@@ -3,6 +3,10 @@
   "version": "0.0.1",
   "private": "true",
 
+  "dependencies": {
+    "node-uuid": "1.4.x"
+  },
+
   "devDependencies": {
     "chai": "1.9.x",
     "cors": "2.2.x",

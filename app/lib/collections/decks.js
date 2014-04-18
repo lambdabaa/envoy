@@ -1,3 +1,5 @@
+/* global Decks: true */
+
 /**
  * (String) creator userId of deck owner.
  * (Array) list cards in deck.

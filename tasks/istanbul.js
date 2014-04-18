@@ -6,30 +6,9 @@ var _ = require('underscore'),
     spawn = require('child_process').spawn;
 
 var ISTANBUL_PATH = __dirname + '/../node_modules/.bin/istanbul';
-var MOCHA_PATH = __dirname + '/../node_modules/.bin/_mocha';
-var MOCHA_SETUP_PATH = __dirname + '/../test/setup.js';
 
 module.exports = function(grunt) {
   grunt.registerMultiTask('istanbul', function() {
-    /**
-     * Run mocha tests with code coverage.
-     */
-    this.mocha = function() {
-      var done = this.async();
-      var cover = spawn(ISTANBUL_PATH, [
-        'cover',
-        MOCHA_PATH,
-        '--',
-        '--reporter', 'spec',
-        '--require', MOCHA_SETUP_PATH
-      ].concat(this._files()));
-
-      cover.stdout.pipe(process.stdout);
-      cover.on('exit', function() {
-        done();
-      });
-    };
-
     /**
      * Instrument code on the given paths.
      */
@@ -77,7 +56,7 @@ module.exports = function(grunt) {
         'http://localhost:8080/coverage/download'
       );
       execf('fuser -s -n tcp -k %d', 8080);
-      var dir = __dirname + '/../coverage-browser';
+      var dir = __dirname + '/../coverage';
       execf('mkdir %s', dir);
       execf('unzip coverage.zip -d %s', dir);
     };

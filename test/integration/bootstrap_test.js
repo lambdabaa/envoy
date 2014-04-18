@@ -161,6 +161,13 @@ function client() {
 }
 global.client = client;
 
+function switchToClient(value) {
+  // TODO(areth): Create another way to tell the views which driver
+  //     to use. Overriding the global driver not so good.
+  global.driver = value;
+}
+global.switchToClient = switchToClient;
+
 function postCoverageData(data) {
   debug('Post coverage data to istanbul server.');
   var deferred = Q.defer();
