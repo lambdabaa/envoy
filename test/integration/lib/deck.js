@@ -75,6 +75,19 @@ Deck.prototype = {
 
   colors: null,
 
+  findElement: function() {
+    return driver.findElement(
+      webdriver.By.css('#decks .deck[name="' + this.name + '"]')
+    );
+  },
+
+  click: function() {
+    return this
+      .findElement()
+      .findElement(webdriver.By.css('a'))
+      .click();
+  },
+
   toString: function() {
     return JSON.stringify({
       name: this.name,

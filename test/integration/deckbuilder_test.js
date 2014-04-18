@@ -18,15 +18,16 @@ describe('deckbuilder', function() {
   });
 
   it('deckname should be initially untitled', function() {
-    return Q.all([
-      deckbuilder.getName(),
-      driver.getCurrentUrl()
-    ])
-    .spread(function(name, currentUrl) {
-      var pathname = url.parse(currentUrl).pathname;
-      assert.strictEqual(name, 'Untitled');
-      assert.strictEqual(pathname, '/decks/new');
-    });
+    return Q
+      .all([
+        deckbuilder.getName(),
+        driver.getCurrentUrl()
+      ])
+      .spread(function(name, currentUrl) {
+        var pathname = url.parse(currentUrl).pathname;
+        assert.strictEqual(name, 'Untitled');
+        assert.strictEqual(pathname, '/decks/new');
+      });
   });
 
   it('deckname should be editable', function() {
