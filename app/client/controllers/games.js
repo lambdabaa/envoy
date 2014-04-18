@@ -44,8 +44,11 @@ Template.games.events({
     Meteor.call('saveGame', { deck: deck });
   },
 
-  'click #games td[name="status"] > span.label-success': function() {
-    Session.set('joining', this);  // Persist the game we're joining.
+  'click #games td[name="status"] > span.label-success': function(event) {
+    // Fetch the table row from the label.
+    var row = event.target.parentNode.parentNode;
+    var data = UI.getElementData(row);
+    Session.set('joining', data);  // Persist the game we're joining.
     $('#choose-deck-dialog').modal();
   },
 

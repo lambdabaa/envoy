@@ -1,1 +1,1 @@
-Handlebars.registerHelper('encodeURIComponent', encodeURIComponent);
+UI.registerHelper('encodeURIComponent', encodeURIComponent);
