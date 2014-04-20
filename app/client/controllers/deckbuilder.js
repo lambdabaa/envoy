@@ -1,4 +1,4 @@
-/* jshint -W117 */
+/* global array */
 
 Template.deckbuilder.created = function() {
   // Every time we load the deckbuilder template,
