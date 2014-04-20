@@ -23,7 +23,7 @@ Template.deckbuilder.created = function() {
 };
 
 Template.deckbuilder.decks = function() {
-  return Decks.find().fetch();
+  return Decks.find();
 };
 
 Template.deckbuilder.isDisabled = function() {
