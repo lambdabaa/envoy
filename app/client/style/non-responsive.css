@@ -6,7 +6,7 @@
 
 /* Reset the container */
 .container {
-  width: 970px;
+  min-width: 970px;
   max-width: none !important;
 }
 
