@@ -1,3 +1,5 @@
+/* jshint -W117 */
+
 Template.deckbuilder.created = function() {
   // Every time we load the deckbuilder template,
   // all of the filters should initially be turned off.
