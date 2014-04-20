@@ -44,13 +44,14 @@ module.exports = function(grunt) {
     },
 
     clean: {
-      default: {
-        dir: 'build/'
-      },
-
-      test: {
-        dir: 'buildtest/'
-      }
+      default: ['build/'],
+      test: [
+        '*.tar.gz',
+        '*.zip',
+        'buildtest/',
+        'coverage/',
+        'coverage-browser/'
+      ]
     },
 
     fixtures: {
@@ -126,6 +127,7 @@ module.exports = function(grunt) {
   });
 
   grunt.loadNpmTasks('grunt-complexity');
+  grunt.loadNpmTasks('grunt-contrib-clean');
   grunt.loadNpmTasks('grunt-contrib-jshint');
   grunt.loadNpmTasks('grunt-contrib-watch');
   grunt.loadNpmTasks('grunt-mocha');
