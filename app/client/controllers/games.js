@@ -1,9 +1,9 @@
 Template.games.decks = function() {
-  return Decks.find().fetch();
+  return Decks.find();
 };
 
 Template.games.games = function() {
-  return Games.find().fetch();
+  return Games.find();
 };
 
 Template.games.host = function(game) {

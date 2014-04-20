@@ -1,5 +1,5 @@
 Template.decks.decks = function() {
-  return Decks.find().fetch();
+  return Decks.find();
 };
 
 Template.decks.cardCount = function(deck) {
