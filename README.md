@@ -92,6 +92,7 @@ This will start meteor on port 3000. Open up the app in your browser by navigati
 + In order to enable Facebook login, click the "Sign In" link on the top right hand corner and enter our fake app id `641806779225581` and secret `8c12107ae123b8f8d1188e87fcb95a17` in the configuration popup.
 + You can enable live updates to your meteor server as you make changes to the app by running `./node_modules/.bin/grunt watch` in another terminal session.
 + If you would like to test interactions with multiple facebook users, we have some test users configured in `test/setup.js`. You can create even more at `https://developers.facebook.com`. Ask Gareth to add you to the test Facebook app.
++ Meteor and jshint often clash because of the way that Meteor does "namespacing". Surprisingly the way in which they clash is somewhat useful. Meteor encourages us to use quasi-global variables to share functionality across different parts of our app. When jshint encounters global variables, however, it complains (since they are, in general, bad practice). We disable these warnings by declaring our globals with jshint directives. These global declarations can be read as "require" and "export" directives. This gives us the semantics of clear dependency declarations without having to argue with the meteor folks about their namespacing system!
 
 ### Tests
 
