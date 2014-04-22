@@ -2,12 +2,10 @@
 
 array = {
   multireject: function(list, filters, context) {
-    var result = list;
-    for (var i = 0; i < filters.length; i += 1) {
-      var filter = filters[i];
-      result = _.reject(result, filter, context);
-    }
-
-    return result;
+    return _.reject(list, function(value) {
+      return _.some(filters, function(filter) {
+        return filter(value);
+      }, context);
+    }, context);
   }
 };
