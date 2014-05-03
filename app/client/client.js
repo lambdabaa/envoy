@@ -25,7 +25,7 @@ Meteor.startup(function() {
           return;
         }
 
-        Session.set('deck', { 'list': [], 'name': null });
+        Session.set('deckbuilder.deck', { 'list': [], 'name': null });
         return this.render();
       },
       waitOn: function() {
@@ -45,7 +45,7 @@ Meteor.startup(function() {
         }
 
         var deck = Decks.findOne({ name: this.params.name });
-        Session.set('deck', deck);
+        Session.set('deckbuilder.deck', deck);
         return this.render();
       },
       waitOn: function() {
