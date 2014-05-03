@@ -3,7 +3,7 @@
 Template.deckbuilder.created = function() {
   // Every time we load the deckbuilder template,
   // all of the filters should initially be turned off.
-  Session.set('filters', {
+  Session.set('deckbuilder.filters', {
     color: {
       blue: false,
       green: false,
@@ -27,13 +27,13 @@ Template.deckbuilder.decks = function() {
 };
 
 Template.deckbuilder.isDisabled = function() {
-  var deck = Session.get('deck');
+  var deck = Session.get('deckbuilder.deck');
   return !deck || deck.list.length === 0;
 };
 
 Template.deckbuilder.cardpool = function() {
   var cards = Cards.find().fetch();
-  var filters = Session.get('filters');
+  var filters = Session.get('deckbuilder.filters');
   return array.multireject(cards, [
     // Reject the card if we're filtering its color.
     function(card) {
@@ -57,7 +57,7 @@ Template.deckbuilder.cardpool = function() {
 };
 
 Template.deckbuilder.deck = function() {
-  var deck = Session.get('deck');
+  var deck = Session.get('deckbuilder.deck');
   if (!deck) {
     return [];
   }
@@ -70,7 +70,7 @@ Template.deckbuilder.deck = function() {
 };
 
 Template.deckbuilder.deckname = function() {
-  var deck = Session.get('deck');
+  var deck = Session.get('deckbuilder.deck');
   if (!deck || !deck.name) {
     return 'Untitled';
   }
@@ -104,10 +104,10 @@ Template.deckbuilder.events({
   },
 
   'click .deckname-save': function(event, template) {
-    var deck = Session.get('deck');
+    var deck = Session.get('deckbuilder.deck');
     var input = template.find('.deckname-input');
     deck.name = input.value;
-    Session.set('deck', deck);
+    Session.set('deckbuilder.deck', deck);
     Meteor.call('saveDeck', deck, function() {
       Router.go('Decks#show', { name: deck.name });
     });
@@ -119,7 +119,7 @@ Template.deckbuilder.events({
    *  - else save the deck
    */
   'click .save-deck': function() {
-    var deck = Session.get('deck');
+    var deck = Session.get('deckbuilder.deck');
     if (!deck.name) {
       return window.alert('Please give your deck a name.');
     }
@@ -134,7 +134,7 @@ Template.deckbuilder.events({
    */
   'click .trash-deck': function() {
     if (window.confirm('Are you sure you want to delete this deck?')) {
-      Session.set('deck', { list: [], name: null });
+      Session.set('deckbuilder.deck', { list: [], name: null });
     }
   },
 
@@ -143,7 +143,7 @@ Template.deckbuilder.events({
    */
   'click .card': function() {
     // Check whether or not this card is already in our deck.
-    var deck = Session.get('deck');
+    var deck = Session.get('deckbuilder.deck');
     var list = deck.list;
     var record = _.find(list, function(record) {
       return _.isEqual(record.card, this);
@@ -155,7 +155,7 @@ Template.deckbuilder.events({
       list.push({ card: this, count: 1 });
     }
 
-    Session.set('deck', deck);
+    Session.set('deckbuilder.deck', deck);
   },
 
   /**
@@ -163,7 +163,7 @@ Template.deckbuilder.events({
    * remove one copy of the card from the deck.
    */
   'click .deck-entry': function() {
-    var deck = Session.get('deck');
+    var deck = Session.get('deckbuilder.deck');
     var list = deck.list;
 
     var record = _.find(list, function(record) {
@@ -177,7 +177,7 @@ Template.deckbuilder.events({
     }
 
     deck.list = list;
-    Session.set('deck', deck);
+    Session.set('deckbuilder.deck', deck);
   },
 
   /**
@@ -187,17 +187,17 @@ Template.deckbuilder.events({
     var label = event.currentTarget;
     var input = label.childNodes[1];
     var filter = label.dataset.filter;
-    var filters = Session.get('filters');
+    var filters = Session.get('deckbuilder.filters');
     filters[input.name][filter] = input.checked;
-    Session.set('filters', filters);
+    Session.set('deckbuilder.filters', filters);
   },
 
   /**
    * When the user types into the search box, recompute the applied filters.
    */
   'input #search-filter': function(event) {
-    var filters = Session.get('filters');
+    var filters = Session.get('deckbuilder.filters');
     filters.search = event.currentTarget.value;
-    Session.set('filters', filters);
+    Session.set('deckbuilder.filters', filters);
   }
 });

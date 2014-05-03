@@ -48,19 +48,19 @@ Template.games.events({
     // Fetch the table row from the label.
     var row = event.target.parentNode.parentNode;
     var data = UI.getElementData(row);
-    Session.set('joining', data);  // Persist the game we're joining.
+    Session.set('games.joining', data);  // Persist the game we're joining.
     $('#choose-deck-dialog').modal();
   },
 
   'click #choose-deck .close': function() {
     // The user didn't join, so reset the game we're joining.
-    Session.set('joining', undefined);
+    Session.set('games.joining', undefined);
   },
 
   'click #choose-deck button[type="submit"]': function(event, template) {
     // Fetch the game we're joining.
-    var joining = Session.get('joining');
-    Session.set('joining', undefined);
+    var joining = Session.get('games.joining');
+    Session.set('games.joining', undefined);
 
     // Grab our user id and the deck we've selected.
     var userId = Meteor.userId();

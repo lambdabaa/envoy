@@ -8,7 +8,9 @@ describe('deckbuilder', function() {
   describe('#created', function() {
     it('should reset filters', function() {
       var mock = sinon.mock(Session);
-      mock.expects('set').withArgs('filters');
+      mock
+        .expects('set')
+        .withArgs('deckbuilder.filters');
       subject.created();
       mock.verify();
       mock.restore();
@@ -27,12 +29,16 @@ describe('deckbuilder', function() {
     });
 
     it('should be disabled if list length 0', function() {
-      stub.withArgs('deck').returns({ list: [] });
+      stub
+        .withArgs('deckbuilder.deck')
+        .returns({ list: [] });
       assert.ok(subject.isDisabled());
     });
 
     it('should be enabled if list length >0', function() {
-      stub.withArgs('deck').returns({ list: [{}] });
+      stub
+        .withArgs('deckbuilder.deck')
+        .returns({ list: [{}] });
       assert.notOk(subject.isDisabled());
     });
   });
@@ -67,7 +73,9 @@ describe('deckbuilder', function() {
     });
 
     it('should return empty array if no deck', function() {
-      stub.withArgs('deck').returns(null);
+      stub
+        .withArgs('deckbuilder.deck')
+        .returns(null);
       var deck = subject.deck();
       assert.isArray(deck);
       assert.lengthOf(deck, 0);
@@ -81,7 +89,9 @@ describe('deckbuilder', function() {
         ]
       };
 
-      stub.withArgs('deck').returns(deck);
+      stub
+        .withArgs('deckbuilder.deck')
+        .returns(deck);
 
       var result = subject.deck();
       assert.lengthOf(result, 2);
@@ -102,13 +112,17 @@ describe('deckbuilder', function() {
     });
 
     it('should be untitled if no name', function() {
-      stub.withArgs('deck').returns({ name: null });
+      stub
+        .withArgs('deckbuilder.deck')
+        .returns({ name: null });
       var name = subject.deckname();
       assert.equal(name, 'Untitled');
     });
 
     it('should have return name if name', function() {
-      stub.withArgs('deck').returns({ name: 'TMNT' });
+      stub
+        .withArgs('deckbuilder.deck')
+        .returns({ name: 'TMNT' });
       var name = subject.deckname();
       assert.equal(name, 'TMNT');
     });
