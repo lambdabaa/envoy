@@ -1,3 +1,5 @@
+/* global Decks, Games */
+
 Template.games.decks = function() {
   return Decks.find();
 };
@@ -8,14 +10,14 @@ Template.games.games = function() {
 
 Template.games.host = function(game) {
   var players = game.players;
-  var creator = players[0];
-  return getPlayer(creator);
+  var host = players[0];
+  return Meteor.users.getName(host);
 };
 
 Template.games.opponent = function(game) {
   var players = game.players;
   var opponent = players[1];
-  return getPlayer(opponent);
+  return Meteor.users.getName(opponent);
 };
 
 Template.games.status = function(game) {
@@ -47,9 +49,15 @@ Template.games.events({
   'click #games td[name="status"] > span.label-success': function(event) {
     // Fetch the table row from the label.
     var row = event.target.parentNode.parentNode;
-    var data = UI.getElementData(row);
-    Session.set('games.joining', data);  // Persist the game we're joining.
+    var game = UI.getElementData(row);
+    Session.set('games.joining', game);  // Persist the game we're joining.
     $('#choose-deck-dialog').modal();
+  },
+
+  'click #games td[name="status"] > span.label-danger': function(event) {
+    var row = event.target.parentNode.parentNode;
+    var game = UI.getElementData(row);
+    Router.go('Games#show', { id: game._id });
   },
 
   'click #choose-deck .close': function() {
@@ -58,34 +66,22 @@ Template.games.events({
   },
 
   'click #choose-deck button[type="submit"]': function(event, template) {
-    // Fetch the game we're joining.
-    var joining = Session.get('games.joining');
-    Session.set('games.joining', undefined);
+    // Wait for the choose deck dialog to go away.
+    $('#choose-deck-dialog').on('hidden.bs.modal', function() {
+      // Fetch the game we're joining.
+      var game = Session.get('games.joining');
+      Session.set('games.joining', undefined);
 
-    // Grab our user id and the deck we've selected.
-    var userId = Meteor.userId();
-    var checked = template.find('input:checked[name="deckname"]');
-    var deck = Decks.findOne({ name: checked.value });
+      // Grab our user id and the deck we've selected.
+      var userId = Meteor.userId();
+      var checked = template.find('input:checked[name="deckname"]');
+      var deck = Decks.findOne({ name: checked.value });
 
-    joining.players.push(userId);
-    joining.playerToDeck[userId] = deck;
-    Meteor.call('saveGame', joining);
+      game.players.push(userId);
+      game.playerToDeck[userId] = deck;
+      Meteor.call('saveGame', game, function() {
+        Router.go('Games#show', { id: game._id });
+      });
+    });
   }
 });
-
-function getPlayer(playerId) {
-  if (!playerId) {
-    return '';
-  }
-
-  var players = Meteor.users.find({ _id: playerId }).fetch();
-  var player = players[0];
-  var profileName;
-  try {
-    profileName = player.profile.name;
-  } catch (e) {
-    profileName = '';
-  }
-
-  return profileName;
-}

@@ -72,9 +72,6 @@
   "globals"       : {
     "$": true,
     "_": true,
-    "Cards": true,
-    "Decks": true,
-    "Games": true,
     "EJSON": true,
     "Handlebars": true,
     "Meteor": true,
@@ -98,6 +95,7 @@
     "driver": true,
     "describe": true,
     "it": true,
-    "sinon": true
+    "sinon": true,
+    "switchToClient": true
   }
 }

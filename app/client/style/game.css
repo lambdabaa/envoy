@@ -1,0 +1,124 @@
+#game {
+  background-color: #F8F8F8;
+  height: 580px;
+  margin-bottom: 20px;
+}
+
+#game > * {
+  float: left;
+  height: 100%;
+}
+
+#game > .infobar {
+  width: 20%;
+}
+
+#game > .infobar > * {
+  height: 50%;
+  width: 100%;
+}
+
+#game > .infobar > .inspect {
+  align-items: center;
+  display: flex;
+  justify-content: center;
+}
+
+#game > .infobar > .inspect > .card {
+  margin: 0;
+}
+
+#game > .infobar > .report {
+}
+
+#game > .board {
+  width: 80%;
+}
+
+#game > .board > * {
+  width: 100%;
+}
+
+#game > .board > .field {
+  height: 40%;
+}
+
+#game > .board > .field-them {
+  background-color: blue;
+}
+
+#game > .board > .field-me {
+  background-color: red;
+}
+
+#game > .board > .field > .tray {
+  cursor: pointer;
+  float: left;
+  height: 100%;
+  padding: 1px;
+  width: 100px;
+}
+
+#game > .board > .field > .tray-them {
+  background-color: gray;
+}
+
+#game > .board > .field > .tray-me {
+  background-color: white;
+}
+
+#game > .board > .field > .tray > .deck {
+  border: 1px solid black;
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  margin: 2px;
+  text-align: center;
+  width: 45px;
+}
+
+#game > .board > .field > .tray > .graveyard {
+  border: 1px solid black;
+  float: left;
+  height: 60px;
+  line-height: 60px;
+  margin: 2px;
+  text-align: center;
+  width: 45px;
+}
+
+#game > .board > .field > .tray > .energy > .energy-color {
+  border: 1px solid #999;
+  border-radius: 50%;
+  float: left;
+  font-size: 12px;
+  height: 15px;
+  line-height: 15px;
+  text-align: center;
+  width: 15px;
+}
+
+#game > .board > .hand {
+  height: 20%;
+}
+
+/* Miniature card preview */
+
+#game > .board > * > .card {
+  height: 110px;
+  margin: 3px 5px;
+  overflow: hidden;
+  width: 110px;
+}
+
+#game > .board > * > .card * {
+  font-size: 9px;
+}
+
+#game > .board > * > .card > .card-image-container {
+  display: none;
+}
+
+#game > .board > * .card-action {
+  cursor: pointer;
+}

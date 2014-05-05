@@ -1,6 +1,12 @@
 /* jshint -W098 */
 var Session = {
-  get: function() {},
+  get: function(key) {
+    return dumbSession[key];
+  },
 
-  set: function() {}
+  set: function(key, value) {
+    dumbSession[key] = value;
+  }
 };
+
+var dumbSession = {};

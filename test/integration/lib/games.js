@@ -36,6 +36,16 @@ Games.prototype = {
         return driver
           .findElement(webdriver.By.css('#create-game button[type="submit"]'))
           .click();
+      })
+      .then(function() {
+        return driver.wait(function() {
+          return driver
+            .findElement(webdriver.By.css('#create-game .configure-game'))
+            .isDisplayed()
+            .then(function(displayed) {
+              return !displayed;
+            });
+        });
       });
   },
 
@@ -75,6 +85,18 @@ Games.prototype = {
       .then(function() {
         return driver
           .findElement(webdriver.By.css('#choose-deck button[type="submit"]'))
+          .click();
+      });
+  },
+
+  enterGameAt: function(index) {
+    return driver
+      .findElements(webdriver.By.css('.game'))
+      .then(function(elements) {
+        // TODO(gareth): Not sure findElements preserves the order we need...
+        var element = elements[index];
+        return element
+          .findElement(webdriver.By.css('td[name="status"] > span.label'))
           .click();
       });
   }

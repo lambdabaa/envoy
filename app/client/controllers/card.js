@@ -1,3 +1,7 @@
+Template.card.id = function(card) {
+  return card.id;
+};
+
 Template.card.formatCardtype = function(cardtype) {
   if (!cardtype.secondary) {
     return cardtype.primary;

@@ -1,4 +1,4 @@
-/* global array */
+/* global Cards, Decks, array */
 
 Template.deckbuilder.created = function() {
   // Every time we load the deckbuilder template,
