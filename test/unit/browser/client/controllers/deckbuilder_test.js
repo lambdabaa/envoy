@@ -7,13 +7,12 @@ describe('deckbuilder', function() {
 
   describe('#created', function() {
     it('should reset filters', function() {
-      var mock = sinon.mock(Session);
-      mock
-        .expects('set')
-        .withArgs('deckbuilder.filters');
+      assert.isUndefined(Session.get('deckbuilder.filters'));
       subject.created();
-      mock.verify();
-      mock.restore();
+      var filters = Session.get('deckbuilder.filters');
+      assert.typeOf(filters.color, 'object');
+      assert.typeOf(filters.cardtype, 'object');
+      assert.strictEqual(filters.search, '');
     });
   });
 

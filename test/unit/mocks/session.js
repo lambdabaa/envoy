@@ -9,4 +9,7 @@ var Session = {
   }
 };
 
-var dumbSession = {};
+var dumbSession;
+beforeEach(function() {
+  dumbSession = {};
+});

@@ -85,10 +85,12 @@ module.exports = function(grunt) {
     // Client-side unit tests with mocha
     mocha: {
       test: {
-        src: ['test/index.html'],
+        src: ['test/unit/index.html'],
         options: {
+          log: true,
+          logErrors: true,
           reporter: 'Spec',
-          run: true
+          run: false
         }
       }
     },
@@ -98,7 +100,7 @@ module.exports = function(grunt) {
       webdriver: {
         options: {
           reporter: 'spec',
-          require: 'test/setup.js',
+          require: 'test/integration/setup.js',
           timeout: '60s'
         },
         src: [
