@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Mocha</title>
+  <meta http-equiv="Content-Type" content="text/html; charset=utf-8">
+  <link rel="stylesheet" href="../../node_modules/mocha/mocha.css">
+
+  <!-- Testing libraries -->
+  <script src="../../node_modules/chai/chai.js"></script>
+  <script src="../../node_modules/mocha/mocha.js"></script>
+  <!-- TODO(gareth): Remove once WebKit has Promise support. -->
+  <script src="../../node_modules/q/q.js"></script>
+  <script src="../../node_modules/sinon/pkg/sinon.js"></script>
+  <script src="../../node_modules/underscore/underscore.js"></script>
+</head>
+<body>
+  <div id="mocha"></div>
+  <script src="./setup.js"></script>
+  <script>
+    var mocks = [
+      './mocks/ejson.js',
+      './mocks/games.js',
+      './mocks/meteor.js',
+      './mocks/session.js',
+      './mocks/template.js'
+    ];
+
+    var sources = [
+      '../../buildtest/client/controllers/card.cover.js',
+      '../../buildtest/client/controllers/deckbuilder.cover.js',
+      '../../buildtest/client/controllers/decks.cover.js',
+      '../../buildtest/client/controllers/game.cover.js',
+      '../../buildtest/client/controllers/games.cover.js',
+      '../../buildtest/lib/array.cover.js',
+      '../../buildtest/lib/collections/games.cover.js',
+      '../../buildtest/lib/collections/users.cover.js'
+    ];
+
+    var tests = [
+      './browser/client/controllers/card_test.js',
+      './browser/client/controllers/deckbuilder_test.js',
+      './browser/client/controllers/decks_test.js',
+      './browser/client/controllers/game_test.js',
+      './browser/client/controllers/games_test.js',
+      './browser/lib/array_test.js',
+      './browser/lib/collections/games_test.js',
+      './browser/lib/collections/users_test.js'
+    ];
+
+    loadScripts(mocks)
+    .then(function() {
+      return loadScripts(sources);
+    })
+    .then(function() {
+      return loadScripts(tests);
+    })
+    .then(function() {
+      mocha.run();
+    })
+    .catch(function(err) {
+      throw err;
+    });
+  </script>
+</body>
+</html>
