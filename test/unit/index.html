@@ -8,6 +8,7 @@
   <!-- Testing libraries -->
   <script src="../../node_modules/chai/chai.js"></script>
   <script src="../../node_modules/mocha/mocha.js"></script>
+  <script src="../../node_modules/node-uuid/uuid.js"></script>
   <!-- TODO(gareth): Remove once WebKit has Promise support. -->
   <script src="../../node_modules/q/q.js"></script>
   <script src="../../node_modules/sinon/pkg/sinon.js"></script>
@@ -15,9 +16,14 @@
 </head>
 <body>
   <div id="mocha"></div>
+
+  <script src="./polyfill/bind.js"></script>
+  <script src="./helpers.js"></script>
   <script src="./setup.js"></script>
+
   <script>
     var mocks = [
+      './mocks/cards.js',
       './mocks/ejson.js',
       './mocks/games.js',
       './mocks/meteor.js',

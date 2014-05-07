@@ -13,6 +13,9 @@ module.exports = function(grunt) {
       ],
 
       options: {
+        ignores: [
+          'test/unit/polyfill/bind.js'
+        ],
         jshintrc: true
       }
     },

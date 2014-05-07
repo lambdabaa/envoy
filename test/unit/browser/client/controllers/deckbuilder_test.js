@@ -1,3 +1,5 @@
+/* global Cards */
+
 describe('deckbuilder', function() {
   var subject;
 
@@ -43,20 +45,97 @@ describe('deckbuilder', function() {
   });
 
   describe('#cardpool', function() {
-    it.skip('should return all cards with no filters', function() {
-      // TODO(gareth)
+    var cards, filters, chronicSpy, spill, volleyOfArrows;
+
+    beforeEach(function() {
+      chronicSpy = {
+        name: 'Chronic Spy',
+        color: 'blue',
+        cardtype: {
+          primary: 'Envoy'
+        }
+      };
+
+      spill = {
+        name: 'Spill',
+        color: 'purple',
+        cardtype: {
+          primary: 'Spell'
+        }
+      };
+
+      volleyOfArrows = {
+        name: 'Volley of Arrows',
+        color: 'white',
+        cardtype: {
+          primary: 'Trap'
+        }
+      };
+
+
+      cards = [chronicSpy, spill, volleyOfArrows];
+
+      sinon
+        .stub(Cards, 'find')
+        .returns({
+          fetch: function() {
+            return cards;
+          }
+        });
+
+      filters = {
+        color: {
+          blue: false,
+          green: false,
+          purple: false,
+          red: false,
+          white: false
+        },
+
+        cardtype: {
+          envoy: false,
+          spell: false,
+          trap: false
+        },
+
+        search: ''
+      };
     });
 
-    it.skip('should obey color filter', function() {
-      // TODO(gareth)
+    afterEach(function() {
+      Cards.find.restore();
     });
 
-    it.skip('should obey cardtype filter', function() {
-      // TODO(gareth)
+    it('should return all cards with no filters', function() {
+      Session.set('deckbuilder.filters', filters);
+      assert.deepEqual(subject.cardpool(), cards);
     });
 
-    it.skip('should obey name search', function() {
-      // TODO(gareth)
+    it('should obey color filter', function() {
+      filters.color.blue = true;
+      Session.set('deckbuilder.filters', filters);
+
+      var withoutBlue = _.reject(cards, function(card) {
+        return card.color === 'blue';
+      });
+      assert.deepEqual(subject.cardpool(), withoutBlue);
+    });
+
+    it('should obey cardtype filter', function() {
+      filters.cardtype.envoy = true;
+      Session.set('deckbuilder.filters', filters);
+
+      var withoutEnvoys = _.reject(cards, function(card) {
+        return card.cardtype.primary === 'Envoy';
+      });
+      assert.deepEqual(subject.cardpool(), withoutEnvoys);
+    });
+
+    it('should obey name search', function() {
+      filters.search = 'Chronic';
+      Session.set('deckbuilder.filters', filters);
+
+      assert.deepEqual(subject.cardpool(), [chronicSpy]);
     });
   });
 

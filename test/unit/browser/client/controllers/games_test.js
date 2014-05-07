@@ -1,17 +1,38 @@
 describe('games', function() {
-  var subject;
+  var subject, game;
 
   beforeEach(function() {
     subject = Template.games;
+
+    game = {
+      players: ['them', 'me'],
+
+      playerToDeck: {
+        me: {
+          list: [
+            { card: { name: 'Linus' }, count: 4 }
+          ],
+          name: 'My Deck'
+        },
+        them: {
+          list: [
+            { card: { name: 'Samson' }, count: 3 }
+          ],
+          name: 'Their Deck'
+        }
+      }
+    };
   });
 
   describe('#host', function() {
-    it.skip('should return player one name', function() {
+    it('should return player one name', function() {
+      assert.strictEqual(subject.host(game), 'Yoda');
     });
   });
 
   describe('#opponent', function() {
-    it.skip('should return player two name', function() {
+    it('should return player two name', function() {
+      assert.strictEqual(subject.opponent(game), 'Buddha');
     });
   });
 

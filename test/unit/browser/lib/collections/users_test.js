@@ -6,7 +6,8 @@ describe('Users', function() {
   });
 
   describe('#getName', function() {
-    it.skip('should return profile name', function() {
+    it('should return profile name', function() {
+      assert.strictEqual(subject.getName('me'), 'Buddha');
     });
   });
 });
