@@ -24,6 +24,9 @@ describe('Games', function() {
 
   describe('#startGame', function() {
     it.skip('should initialize game object', function() {
+      subject.startGame();
+
+      // TODO(gareth): Check that the game state looks right.
     });
   });
 });

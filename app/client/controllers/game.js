@@ -100,7 +100,7 @@ Template.game.hand = function() {
   //     framework call to recompute this function and the
   //     resulting DOM operation(s) occur in the same tick
   //     of the event loop.
-  setTimeout(addTooltipsToCards, 0);
+  setTimeout(Template.game._addTooltipsToCards, 0);
 
   return hand;
 };
@@ -142,32 +142,33 @@ Template.game.inspect = function() {
     var playerId = (player === 'me') ?
       Meteor.userId() :
       Games.getOpponent(game);
-    var playerToEnergy = game.playerToEnergy;
-    var energy = playerToEnergy[playerId];
+    var playerToEnergyAvailable = game.playerToEnergyAvailable;
+    var energy = playerToEnergyAvailable[playerId];
     return energy[color];
   };
 });
 
+Template.game._draw = function() {
+  var game = Session.get('game.game');
+  if (!game || !game.started) {
+    return;
+  }
+
+  var userId = Meteor.userId();
+  var library = game.playerToLibrary[userId];
+  if (!library || library.length === 0) {
+    return;
+  }
+
+  var hand = game.playerToHand[userId];
+  hand.push(library.pop());
+  Meteor.call('saveGame', game, function() {
+    Session.set('game.game', game);
+  });
+};
+
 Template.game.events({
-  'click .deck-me': function() {
-    // Draw.
-    var game = Session.get('game.game');
-    if (!game || !game.started) {
-      return;
-    }
-
-    var userId = Meteor.userId();
-    var library = game.playerToLibrary[userId];
-    if (!library || library.length === 0) {
-      return;
-    }
-
-    var hand = game.playerToHand[userId];
-    hand.push(library.pop());
-    Meteor.call('saveGame', game, function() {
-      Session.set('game.game', game);
-    });
-  },
+  'click .deck-me': Template.game._draw,
 
   'click .board > * > .card': function() {
     Session.set('game.inspect', this);
@@ -241,7 +242,7 @@ function castCard(card) {
 }
 
 // TODO(gareth): This is awful...
-function addTooltipsToCards() {
+Template.game._addTooltipsToCards = function() {
   var game = Session.get('game.game');
   if (!game || !game.started) {
     return;
@@ -280,4 +281,4 @@ function addTooltipsToCards() {
       trigger: 'click'
     });
   });
-}
+};
