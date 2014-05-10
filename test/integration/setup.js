@@ -6,7 +6,7 @@ global.assert = assert;
 
 global.APP_ID = '641806779225581';
 global.APP_SECRET = '8c12107ae123b8f8d1188e87fcb95a17';
-global.ENVOY_BASE_PATH = 'http://localhost:3000';
+global.ENVOY_BASE_PATH = 'http://localhost:4000';
 
 /* Test facebook graph users */
 global.TOM = {

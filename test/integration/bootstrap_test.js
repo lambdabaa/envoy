@@ -18,8 +18,6 @@ var METEOR_PATH = ROOT_PATH + '/buildtest';
 
 var MONGO_PATH = ROOT_PATH + '/buildtest/.meteor/local/db/';
 
-global.ENVOY_BASE_PATH = 'http://localhost:4000';
-
 var meteor, selenium, driver;
 
 before(function(done) {
