@@ -1,5 +1,4 @@
 /* global Games: true */
-/* global uuid */
 
 /**
  * (Array) players list of game players.
@@ -118,7 +117,7 @@ function setupLibrary(deck) {
       deck.list.map(function(record) {
         return _.times(record.count, function() {
           var card = EJSON.clone(record.card);
-          card.id = uuid.v4();
+          card.id = Meteor.uuid();
           return card;
         });
       }), true /* shallow */

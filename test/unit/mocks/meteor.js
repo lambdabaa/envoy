@@ -44,5 +44,9 @@ var Meteor = {
 
       return find;
     }
+  },
+
+  uuid: function() {
+    return Math.random().toString(36).substr(2);
   }
 };
