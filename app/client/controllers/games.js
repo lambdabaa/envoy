@@ -1,5 +1,4 @@
 /* global Decks, Games */
-
 Template.games.decks = function() {
   return Decks.find();
 };
@@ -9,14 +8,12 @@ Template.games.games = function() {
 };
 
 Template.games.host = function(game) {
-  var players = game.players;
-  var host = players[0];
+  var host = game.players[0];
   return Meteor.users.getName(host);
 };
 
 Template.games.opponent = function(game) {
-  var players = game.players;
-  var opponent = players[1];
+  var opponent = game.players[1];
   return Meteor.users.getName(opponent);
 };
 

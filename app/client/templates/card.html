@@ -7,20 +7,20 @@
     </div>
 
     <div class="card-tray">
-      <div class="card-type">{{formatCardtype cardtype}}</div>
+      <div class="card-type">{{formatCardtype}}</div>
 
       <div class="card-cost-container">
-        <div class="card-cost card-colorless-cost" data-hidden="{{isZeroColorless cost}}">{{cost.colorless}}</div>
-        <div class="card-cost card-color-cost {{color}}" data-hidden="{{isZeroColor cost}}">{{cost.color}}</div>
+        <div class="card-cost card-colorless-cost" data-hidden="{{zeroColorlessCost}}">{{cost.colorless}}</div>
+        <div class="card-cost card-color-cost {{color}}" data-hidden="{{zeroColorCost}}">{{cost.color}}</div>
       </div>
     </div>
 
     <div class="card-description">
-      {{formatDescription description}}
+      {{formatDescription}}
     </div>
 
-    <div class="card-combat" data-hidden="{{isNotEnvoy this}}">
-      {{formatCombat power hp}}
+    <div class="card-combat" data-hidden="{{isNotEnvoy}}">
+      {{formatCombat}}
     </div>
   </div>
 </template>

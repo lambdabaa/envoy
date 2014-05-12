@@ -1,11 +1,10 @@
 /* global Decks: true */
-
-/**
- * (String) creator userId of deck owner.
- * (Array) list cards in deck.
- * (String) name title of deck.
- */
-Decks = new Meteor.Collection('decks');
+/* global Deck */
+Decks = new Meteor.Collection('decks', {
+  transform: function(doc) {
+    return new Deck(doc);
+  }
+});
 
 Meteor.methods({
   /**
@@ -14,8 +13,8 @@ Meteor.methods({
    *   (String) name title of deck.
    */
   saveDeck: function(options) {
-    if (options._id) {
-      return Decks.update({ _id: options._id }, options);
+    if (options instanceof Deck) {
+      return Decks.update({ _id: options._id }, options.toJSONValue());
     }
 
     var deck = {};

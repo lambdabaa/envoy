@@ -19,5 +19,9 @@ Meteor.methods({
         }
       });
     });
+  },
+
+  removeAllGames: function() {
+    Games.remove({}, function() {});
   }
 });

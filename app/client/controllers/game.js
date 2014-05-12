@@ -1,5 +1,3 @@
-/* global Games */
-
 Template.game.rendered = function() {
   var game = Session.get('game.game');
   if (!game || game.started) {
@@ -7,7 +5,7 @@ Template.game.rendered = function() {
   }
 
   // Initialize the game.
-  Games.startGame(game);
+  game.start();
   Meteor.call('saveGame', game, function() {
     Session.set('game.game', game);
   });
@@ -24,7 +22,7 @@ Template.game.them = function() {
     return '';
   }
 
-  var opponent = Games.getOpponent(game);
+  var opponent = game.getOpponent();
   return Meteor.users.getName(opponent);
 };
 
@@ -34,9 +32,11 @@ Template.game.deckCount = function(player) {
     return 0;
   }
 
+  console.log(game);
   var playerId = (player === 'me') ?
     Meteor.userId() :
-    Games.getOpponent(game);
+    game.getOpponent(game);
+  console.log(playerId);
   var playerToLibrary = game.playerToLibrary;
   var library = playerToLibrary[playerId];
   return library.length;
@@ -50,7 +50,7 @@ Template.game.handCount = function(player) {
 
   var playerId = (player === 'me') ?
     Meteor.userId() :
-    Games.getOpponent(game);
+    game.getOpponent(game);
   var playerToHand = game.playerToHand;
   var hand = playerToHand[playerId];
   return hand.length;
@@ -64,7 +64,7 @@ Template.game.graveyardCount = function(player) {
 
   var playerId = (player === 'me') ?
     Meteor.userId() :
-    Games.getOpponent(game);
+    game.getOpponent(game);
   var playerToGraveyard = game.playerToGraveyard;
   var graveyard = playerToGraveyard[playerId];
   return graveyard.length;
@@ -78,7 +78,7 @@ Template.game.life = function(player) {
 
   var playerId = (player === 'me') ?
     Meteor.userId() :
-    Games.getOpponent(game);
+    game.getOpponent(game);
   var playerToLife = game.playerToLife;
   var life = playerToLife[playerId];
   return life;
@@ -113,7 +113,7 @@ Template.game.field = function(player) {
 
   var playerId = (player === 'me') ?
     Meteor.userId() :
-    Games.getOpponent(game);
+    game.getOpponent(game);
   var playerToField = game.playerToField;
   var field = playerToField[playerId];
   return field;
@@ -141,7 +141,7 @@ Template.game.inspect = function() {
 
     var playerId = (player === 'me') ?
       Meteor.userId() :
-      Games.getOpponent(game);
+      game.getOpponent(game);
     var playerToEnergyAvailable = game.playerToEnergyAvailable;
     var energy = playerToEnergyAvailable[playerId];
     return energy[color];

@@ -146,7 +146,7 @@ Template.deckbuilder.events({
     var deck = Session.get('deckbuilder.deck');
     var list = deck.list;
     var record = _.find(list, function(record) {
-      return _.isEqual(record.card, this);
+      return record.card.name === this.name;
     }, this);
 
     if (record) {
